@@ -11,8 +11,11 @@ export class SignUpController implements IController {
   }
 
   async handle(request: IHttpRequest): Promise<IHttpResponse> {
-    const user = await this.createUser.execute(request.body);
-
-    return successRequest(user);
+    try {
+      const user = await this.createUser.execute(request.body);
+      return successRequest(user);
+    } catch (error) {
+      return { statusCode: 500, body: new Error('Server error') };
+    }
   }
 }

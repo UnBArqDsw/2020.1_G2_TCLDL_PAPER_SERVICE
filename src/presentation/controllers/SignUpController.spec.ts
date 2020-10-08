@@ -1,8 +1,20 @@
+import { IUser } from '../../domain/entities/IUser';
+import { ICreateUser } from '../../domain/iteractor/ICreateUser';
 import { IHttpRequest, IHttpResponse } from '../protocols/IHttp';
 import { SignUpController } from './SignUpController';
 
+class CreateUserStub implements ICreateUser {
+  async execute(data: Omit<IUser, 'id'>): Promise<IUser> {
+    return {
+      id: 'valid_id',
+      ...data,
+    };
+  }
+}
+
 describe('SignUpController', () => {
-  const sut = new SignUpController();
+  const createUserStub = new CreateUserStub();
+  const sut = new SignUpController(createUserStub);
   let httpRequest: IHttpRequest;
   let httpResponse: IHttpResponse;
   describe('when handle execute', () => {

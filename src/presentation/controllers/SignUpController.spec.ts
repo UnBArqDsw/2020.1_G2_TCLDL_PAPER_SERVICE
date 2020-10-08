@@ -1,5 +1,6 @@
 import { IUser } from '../../domain/entities/IUser';
 import { ICreateUser } from '../../domain/iteractor/ICreateUser';
+import { ServerError } from '../errors/ServerError';
 import { IHttpRequest, IHttpResponse } from '../protocols/IHttp';
 import { SignUpController } from './SignUpController';
 
@@ -64,7 +65,7 @@ describe('SignUpController', () => {
       });
 
       it('should return message error', () => {
-        expect(httpResponse.body).toEqual(new Error('Server error'));
+        expect(httpResponse.body).toEqual(new ServerError());
       });
     });
   });

@@ -23,6 +23,10 @@ describe('SignUpController', () => {
       it('should return status code 200', () => {
         expect(httpResponse.statusCode).toBe(200);
       });
+
+      it('should return user info', () => {
+        expect(httpResponse.body).toEqual({ id: 'valid_id', ...httpRequest.body });
+      });
     });
   });
 });

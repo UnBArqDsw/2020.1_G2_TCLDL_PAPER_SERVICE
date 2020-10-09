@@ -1,11 +1,11 @@
-import { IUser } from '../../domain/entities/IUser';
-import { ICreateUser } from '../../domain/iteractor/ICreateUser';
+import { User } from '../../domain/entities/User';
+import { CreateUser } from '../../domain/iteractor/CreateUser';
 import { ServerError } from '../errors/ServerError';
-import { IHttpRequest, IHttpResponse } from '../protocols/IHttp';
+import { HttpRequest, HttpResponse } from '../protocols/Http';
 import { SignUpController } from './SignUpController';
 
-class CreateUserStub implements ICreateUser {
-  async execute(data: Omit<IUser, 'id'>): Promise<IUser> {
+class CreateUserStub implements CreateUser {
+  async execute(data: Omit<User, 'id'>): Promise<User> {
     return {
       id: 'valid_id',
       ...data,
@@ -18,8 +18,8 @@ describe('SignUpController', () => {
   const sut = new SignUpController(createUserStub);
   describe('when handle execute', () => {
     describe('and promise resolves', () => {
-      let httpRequest: IHttpRequest;
-      let httpResponse: IHttpResponse;
+      let httpRequest: HttpRequest;
+      let httpResponse: HttpResponse;
       beforeAll(async () => {
         httpRequest = {
           body: {
@@ -43,8 +43,8 @@ describe('SignUpController', () => {
     });
 
     describe('and promise rejects', () => {
-      let httpRequest: IHttpRequest;
-      let httpResponse: IHttpResponse;
+      let httpRequest: HttpRequest;
+      let httpResponse: HttpResponse;
 
       beforeAll(async () => {
         jest.spyOn(createUserStub, 'execute').mockRejectedValueOnce('Error');

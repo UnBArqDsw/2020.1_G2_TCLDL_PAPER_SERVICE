@@ -1,16 +1,16 @@
 import { BadRequestError } from '../errors/BadRequestError';
-import { IHttpRequest } from '../protocols/IHttp';
-import { IMiddleware } from '../protocols/IMiddleware';
-import { IRequestValidator } from '../validators/IRequestValidator';
+import { HttpRequest } from '../protocols/Http';
+import { Middleware } from '../protocols/Middleware';
+import { RequestValidator } from '../validators/RequestValidator';
 
-export class SignUpValidatorMiddleware implements IMiddleware {
-  private readonly requestValidator: IRequestValidator
+export class SignUpValidatorMiddleware implements Middleware {
+  private readonly requestValidator: RequestValidator
 
-  constructor(requestValidator: IRequestValidator) {
+  constructor(requestValidator: RequestValidator) {
     this.requestValidator = requestValidator;
   }
 
-  async handle(request: IHttpRequest): Promise<void> {
+  async handle(request: HttpRequest): Promise<void> {
     const { isValid, fields } = await this.requestValidator.validate(request);
     if (!isValid) {
       throw new BadRequestError(fields);

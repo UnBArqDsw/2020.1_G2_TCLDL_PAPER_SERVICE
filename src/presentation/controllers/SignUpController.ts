@@ -1,16 +1,16 @@
-import { ICreateUser } from '../../domain/iteractor/ICreateUser';
+import { CreateUser } from '../../domain/iteractor/CreateUser';
 import { serverError, successRequest } from '../helpers/HttpHelper';
-import { IController } from '../protocols/IController';
-import { IHttpRequest, IHttpResponse } from '../protocols/IHttp';
+import { Controller } from '../protocols/Controller';
+import { HttpRequest, HttpResponse } from '../protocols/Http';
 
-export class SignUpController implements IController {
-  private readonly createUser: ICreateUser
+export class SignUpController implements Controller {
+  private readonly createUser: CreateUser
 
-  constructor(createUser: ICreateUser) {
+  constructor(createUser: CreateUser) {
     this.createUser = createUser;
   }
 
-  async handle(request: IHttpRequest): Promise<IHttpResponse> {
+  async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
       const user = await this.createUser.execute(request.body);
       return successRequest(user);

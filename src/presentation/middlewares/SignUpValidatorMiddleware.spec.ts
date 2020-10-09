@@ -1,10 +1,10 @@
 import { BadRequestError } from '../errors/BadRequestError';
-import { IHttpRequest } from '../protocols/IHttp';
-import { IRequestValidator, IRequestValidatorReturn } from '../validators/IRequestValidator';
+import { HttpRequest } from '../protocols/Http';
+import { RequestValidator, RequestValidatorReturn } from '../validators/RequestValidator';
 import { SignUpValidatorMiddleware } from './SignUpValidatorMiddleware';
 
-class SignUpRequestValidatorStub implements IRequestValidator {
-  async validate(_request: IHttpRequest): Promise<IRequestValidatorReturn> {
+class SignUpRequestValidatorStub implements RequestValidator {
+  async validate(_request: HttpRequest): Promise<RequestValidatorReturn> {
     return {
       isValid: true,
       fields: '',
@@ -17,7 +17,7 @@ describe('SignUpValidatorMiddleware', () => {
   const sut = new SignUpValidatorMiddleware(validatorStub);
   describe('when call handle', () => {
     describe('and request validator returns true', () => {
-      let httpRequest: IHttpRequest;
+      let httpRequest: HttpRequest;
 
       beforeAll(() => {
         httpRequest = {
@@ -37,7 +37,7 @@ describe('SignUpValidatorMiddleware', () => {
     });
 
     describe('and request validator returns false', () => {
-      let httpRequest: IHttpRequest;
+      let httpRequest: HttpRequest;
 
       beforeAll(() => {
         httpRequest = {

@@ -1,5 +1,5 @@
 import { User } from '../../domain/entities/User';
-import { CreateUser } from '../../domain/iteractor/CreateUser';
+import { CreateUser } from '../../domain/interactors/CreateUser';
 import { ServerError } from '../errors/ServerError';
 import { HttpRequest, HttpResponse } from '../protocols/Http';
 import { SignUpController } from './SignUpController';

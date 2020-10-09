@@ -1,4 +1,5 @@
 import { User } from '@domain/entities/User';
+import { Encrypter } from 'data/protocols/Encrypter';
 import { CreateUserRepository } from 'data/repositories/CreateUserRepository';
 import { CreateUserAdapterDb } from './CreateUserAdapterDb';
 
@@ -11,9 +12,16 @@ class CreateUserRepositoryStub implements CreateUserRepository {
   }
 }
 
+class EncrypterStub implements Encrypter {
+  async encrypt(_value: string): Promise<string> {
+    return 'hashed_password';
+  }
+}
+
 describe('Create User Adapter', () => {
   const createUserRepositoryStub = new CreateUserRepositoryStub();
-  const sut = new CreateUserAdapterDb(createUserRepositoryStub);
+  const encrypterStub = new EncrypterStub();
+  const sut = new CreateUserAdapterDb(createUserRepositoryStub, encrypterStub);
 
   describe('when calls execute', () => {
     let userData: Omit<User, 'id'>;
@@ -24,13 +32,19 @@ describe('Create User Adapter', () => {
           name: 'valid_name',
           lastName: 'valid_lastName',
           email: 'valid_email',
-          password: 'password',
+          password: 'valid_password',
         };
+
+        jest.spyOn(encrypterStub, 'encrypt');
         user = await sut.execute(userData);
       });
 
-      it('should return user with id', () => {
-        expect(user).toEqual({ id: 'valid_id', ...userData });
+      it('should return user with id and hashed password', () => {
+        expect(user).toEqual({ ...userData, id: 'valid_id', password: 'hashed_password' });
+      });
+
+      it('should call encrypter with correct values', () => {
+        expect(encrypterStub.encrypt).toHaveBeenCalledWith('valid_password');
       });
     });
   });

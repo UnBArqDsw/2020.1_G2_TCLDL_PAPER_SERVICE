@@ -20,6 +20,7 @@ describe('SignUpController', () => {
     describe('and promise resolves', () => {
       let httpRequest: HttpRequest;
       let httpResponse: HttpResponse;
+      const createUserSpy = jest.spyOn(createUserStub, 'execute');
       beforeAll(async () => {
         httpRequest = {
           body: {
@@ -39,6 +40,10 @@ describe('SignUpController', () => {
 
       it('should return user info', () => {
         expect(httpResponse.body).toEqual({ id: 'valid_id', ...httpRequest.body });
+      });
+
+      it('should call createUser with correct params', () => {
+        expect(createUserSpy).toHaveBeenCalledWith(httpRequest.body);
       });
     });
 

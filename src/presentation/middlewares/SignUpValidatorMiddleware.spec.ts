@@ -18,7 +18,7 @@ describe('SignUpValidatorMiddleware', () => {
   describe('when call handle', () => {
     describe('and request validator returns true', () => {
       let httpRequest: HttpRequest;
-
+      const validatorSpy = jest.spyOn(validatorStub, 'validate');
       beforeAll(() => {
         httpRequest = {
           body: {
@@ -33,6 +33,10 @@ describe('SignUpValidatorMiddleware', () => {
 
       it('should not throw error', async () => {
         await expect(sut.handle(httpRequest)).resolves.toBe(undefined);
+      });
+
+      it('should call validator with correct params', () => {
+        expect(validatorSpy).toHaveBeenCalledWith(httpRequest.body);
       });
     });
 

@@ -1,6 +1,6 @@
-import { BadRequestError } from '../errors/BadRequestError';
-import { HttpRequest } from '../protocols/Http';
-import { RequestValidator, RequestValidatorReturn } from '../validators/RequestValidator';
+import { BadRequestError } from '@presentation/errors/BadRequestError';
+import { HttpRequest } from '@presentation/protocols/Http';
+import { RequestValidator, RequestValidatorReturn } from '@presentation/validators/RequestValidator';
 import { SignUpValidatorMiddleware } from './SignUpValidatorMiddleware';
 
 class SignUpRequestValidatorStub implements RequestValidator {

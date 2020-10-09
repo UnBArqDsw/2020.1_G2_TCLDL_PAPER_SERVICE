@@ -1,7 +1,7 @@
-import { CreateUser } from '../../domain/interactors/CreateUser';
-import { serverError, successRequest } from '../helpers/HttpHelper';
-import { Controller } from '../protocols/Controller';
-import { HttpRequest, HttpResponse } from '../protocols/Http';
+import { CreateUser } from '@domain/interactors/CreateUser';
+import { Controller } from '@presentation/protocols/Controller';
+import { serverError, successRequest } from '@presentation/helpers/HttpHelper';
+import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 
 export class SignUpController implements Controller {
   private readonly createUser: CreateUser

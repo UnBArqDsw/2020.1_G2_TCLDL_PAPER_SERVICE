@@ -1,7 +1,7 @@
-import { User } from '../../domain/entities/User';
-import { CreateUser } from '../../domain/interactors/CreateUser';
-import { ServerError } from '../errors/ServerError';
-import { HttpRequest, HttpResponse } from '../protocols/Http';
+import { User } from '@domain/entities/User';
+import { CreateUser } from '@domain/interactors/CreateUser';
+import { ServerError } from '@presentation/errors/ServerError';
+import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { SignUpController } from './SignUpController';
 
 class CreateUserStub implements CreateUser {

@@ -1,4 +1,4 @@
-import { HttpError } from '../protocols/HttpError';
+import { HttpError } from '@presentation/protocols/HttpError';
 
 export class BadRequestError extends Error implements HttpError {
   public readonly statusCode: number

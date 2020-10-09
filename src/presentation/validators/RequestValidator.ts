@@ -1,4 +1,4 @@
-import { HttpRequest } from '../protocols/Http';
+import { HttpRequest } from '@presentation/protocols/Http';
 
 export interface RequestValidatorReturn {
   isValid: boolean

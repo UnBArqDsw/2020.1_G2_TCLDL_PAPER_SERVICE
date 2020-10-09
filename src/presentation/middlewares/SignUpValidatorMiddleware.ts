@@ -1,7 +1,7 @@
-import { BadRequestError } from '../errors/BadRequestError';
-import { HttpRequest } from '../protocols/Http';
-import { Middleware } from '../protocols/Middleware';
-import { RequestValidator } from '../validators/RequestValidator';
+import { BadRequestError } from '@presentation/errors/BadRequestError';
+import { HttpRequest } from '@presentation/protocols/Http';
+import { Middleware } from '@presentation/protocols/Middleware';
+import { RequestValidator } from '@presentation/validators/RequestValidator';
 
 export class SignUpValidatorMiddleware implements Middleware {
   private readonly requestValidator: RequestValidator

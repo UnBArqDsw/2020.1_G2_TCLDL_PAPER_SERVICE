@@ -6,5 +6,5 @@ export interface RequestValidatorReturn {
 }
 
 export interface RequestValidator {
-  validate: (data: HttpRequest) => Promise<RequestValidatorReturn>
+  validate: (data: HttpRequest['body']) => Promise<RequestValidatorReturn>
 }

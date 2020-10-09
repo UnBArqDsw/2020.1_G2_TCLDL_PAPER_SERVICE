@@ -11,7 +11,7 @@ export class SignUpValidatorMiddleware implements Middleware {
   }
 
   async handle(request: HttpRequest): Promise<void> {
-    const { isValid, fields } = await this.requestValidator.validate(request);
+    const { isValid, fields } = await this.requestValidator.validate(request.body);
     if (!isValid) {
       throw new BadRequestError(fields);
     }

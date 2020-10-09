@@ -1,18 +1,22 @@
+import { BadRequestError } from '../errors/BadRequestError';
 import { IHttpRequest } from '../protocols/IHttp';
-import { IRequestValidator } from '../validators/IRequestValidator';
+import { IRequestValidator, IRequestValidatorReturn } from '../validators/IRequestValidator';
 import { SignUpValidatorMiddleware } from './SignUpValidatorMiddleware';
 
 class SignUpRequestValidatorStub implements IRequestValidator {
-  async isValid(_request: IHttpRequest): Promise<boolean> {
-    return true;
+  async validate(_request: IHttpRequest): Promise<IRequestValidatorReturn> {
+    return {
+      isValid: true,
+      fields: '',
+    };
   }
 }
 
 describe('SignUpValidatorMiddleware', () => {
-  const validator = new SignUpRequestValidatorStub();
-  const sut = new SignUpValidatorMiddleware(validator);
+  const validatorStub = new SignUpRequestValidatorStub();
+  const sut = new SignUpValidatorMiddleware(validatorStub);
   describe('when call handle', () => {
-    describe('and promise resolves', () => {
+    describe('and request validator returns true', () => {
       let httpRequest: IHttpRequest;
 
       beforeAll(() => {
@@ -29,6 +33,31 @@ describe('SignUpValidatorMiddleware', () => {
 
       it('should not throw error', async () => {
         await expect(sut.handle(httpRequest)).resolves.toBe(undefined);
+      });
+    });
+
+    describe('and request validator returns false', () => {
+      let httpRequest: IHttpRequest;
+
+      beforeAll(() => {
+        httpRequest = {
+          body: {
+            name: 'invalid_name',
+            lastName: 'invalid_lastName',
+            email: 'invalid_email',
+            password: 'invalid_password',
+            passwordConfirmation: 'invalid_password',
+          },
+        };
+        jest.spyOn(validatorStub, 'validate').mockResolvedValueOnce(
+          { isValid: false, fields: 'name, lastName, email, password, passwordConfirmation' },
+        );
+      });
+
+      it('should throw an error', async () => {
+        await expect(sut.handle(httpRequest)).rejects.toThrow(
+          new BadRequestError('name, lastName, email, password, passwordConfirmation'),
+        );
       });
     });
   });

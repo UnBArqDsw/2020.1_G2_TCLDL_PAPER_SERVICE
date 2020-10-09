@@ -6,7 +6,11 @@ export const successRequest = (data: any): IHttpResponse => ({
   body: data,
 });
 
-export const serverError = (): IHttpResponse => ({
-  statusCode: 500,
-  body: new ServerError(),
-});
+export const serverError = (): IHttpResponse => {
+  const httpServerError = new ServerError();
+
+  return {
+    statusCode: httpServerError.statusCode,
+    body: httpServerError,
+  };
+};

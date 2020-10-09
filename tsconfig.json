@@ -9,7 +9,8 @@
     "baseUrl": "src",                       /* Base directory to resolve non-absolute module names. */
     "paths": {
       "@domain/*": ["domain/*"],
-      "@presentation/*": ["presentation/*"]
+      "@presentation/*": ["presentation/*"],
+      "@data/*": ["data/*"]
     },                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     "rootDir": "src",
   },

@@ -1,7 +1,7 @@
 import { User } from '@domain/entities/User';
 import { CreateUser } from '@domain/interactors/CreateUser';
-import { Encrypter } from 'data/protocols/Encrypter';
-import { CreateUserRepository } from 'data/repositories/CreateUserRepository';
+import { Encrypter } from '@data/protocols/Encrypter';
+import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
 
 export class CreateUserAdapterDb implements CreateUser {
   private readonly createUserRepository: CreateUserRepository

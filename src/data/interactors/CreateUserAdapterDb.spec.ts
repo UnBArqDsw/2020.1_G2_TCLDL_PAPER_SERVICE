@@ -1,6 +1,6 @@
 import { User } from '@domain/entities/User';
-import { Encrypter } from 'data/protocols/Encrypter';
-import { CreateUserRepository } from 'data/repositories/CreateUserRepository';
+import { Encrypter } from '@data/protocols/Encrypter';
+import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
 import { CreateUserAdapterDb } from './CreateUserAdapterDb';
 
 class CreateUserRepositoryStub implements CreateUserRepository {

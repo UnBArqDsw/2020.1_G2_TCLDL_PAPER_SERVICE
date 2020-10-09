@@ -1,5 +1,10 @@
 import { IHttpRequest } from '../protocols/IHttp';
 
+export interface IRequestValidatorReturn {
+  isValid: boolean
+  fields: string
+}
+
 export interface IRequestValidator {
-  isValid: (data: IHttpRequest) => Promise<boolean>
+  validate: (data: IHttpRequest) => Promise<IRequestValidatorReturn>
 }

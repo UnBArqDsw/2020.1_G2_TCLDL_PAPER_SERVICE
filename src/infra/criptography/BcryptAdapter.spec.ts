@@ -25,5 +25,17 @@ describe('Bcrypt adapter', () => {
         expect(bcrypt.hash).toHaveBeenCalledWith('valid_string', process.env.BCRYPT_SALT);
       });
     });
+
+    describe('and bcrypt.hash throws', () => {
+      let result: Promise<string>;
+      beforeAll(() => {
+        jest.spyOn(bcrypt, 'hash').mockRejectedValueOnce(new Error());
+        result = sut.encrypt('valid_string');
+      });
+
+      it('should throw an error', async () => {
+        await expect(result).rejects.toThrow();
+      });
+    });
   });
 });

@@ -1,17 +1,20 @@
 import { User } from '@domain/entities/User';
 import { Encrypter } from '@data/protocols/Encrypter';
 import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
+import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { CreateUserAdapterDb } from './CreateUserAdapterDb';
 
 class CreateUserRepositoryStub implements CreateUserRepository {
-  async execute(userData: Omit<User, 'id'>): Promise<User> {
-    return {
-      id: 'valid_id',
-      ...userData,
-    };
+  async execute(userData: User): Promise<User> {
+    return userData;
   }
 }
 
+class UuidGeneratorStub implements UuidGenerator {
+  async generate() {
+    return 'valid_uuid';
+  }
+}
 class EncrypterStub implements Encrypter {
   async encrypt(_value: string): Promise<string> {
     return 'hashed_password';
@@ -21,7 +24,8 @@ class EncrypterStub implements Encrypter {
 describe('Create User Adapter', () => {
   const createUserRepositoryStub = new CreateUserRepositoryStub();
   const encrypterStub = new EncrypterStub();
-  const sut = new CreateUserAdapterDb(createUserRepositoryStub, encrypterStub);
+  const uuidGeneratorStub = new UuidGeneratorStub();
+  const sut = new CreateUserAdapterDb(createUserRepositoryStub, encrypterStub, uuidGeneratorStub);
 
   describe('when calls execute', () => {
     describe('and promise resolves', () => {
@@ -41,7 +45,7 @@ describe('Create User Adapter', () => {
       });
 
       it('should return user with id and hashed password', () => {
-        expect(user).toEqual({ ...userData, id: 'valid_id', password: 'hashed_password' });
+        expect(user).toEqual({ ...userData, id: 'valid_uuid', password: 'hashed_password' });
       });
 
       it('should call encrypter with correct values', () => {

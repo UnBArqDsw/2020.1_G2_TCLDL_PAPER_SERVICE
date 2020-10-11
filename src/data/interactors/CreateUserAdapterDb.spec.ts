@@ -24,9 +24,10 @@ describe('Create User Adapter', () => {
   const sut = new CreateUserAdapterDb(createUserRepositoryStub, encrypterStub);
 
   describe('when calls execute', () => {
-    let userData: Omit<User, 'id'>;
-    let user: User;
     describe('and promise resolves', () => {
+      let userData: Omit<User, 'id'>;
+      let user: User;
+
       beforeAll(async () => {
         userData = {
           name: 'valid_name',
@@ -45,6 +46,24 @@ describe('Create User Adapter', () => {
 
       it('should call encrypter with correct values', () => {
         expect(encrypterStub.encrypt).toHaveBeenCalledWith('valid_password');
+      });
+    });
+
+    describe('and enctypter throws', () => {
+      let userData: Omit<User, 'id'>;
+
+      beforeAll(() => {
+        jest.spyOn(encrypterStub, 'encrypt').mockRejectedValueOnce(new Error());
+        userData = {
+          name: 'valid_name',
+          lastName: 'valid_lastName',
+          email: 'valid_email',
+          password: 'valid_password',
+        };
+      });
+
+      it('should throw an error', async () => {
+        await expect(sut.execute(userData)).rejects.toThrow();
       });
     });
   });

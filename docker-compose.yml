@@ -3,6 +3,9 @@ version: "3.6"
 services:
   paper-service:
     image: paper-service:dev
+    tty: true
+    command: sh
+    container_name: paper_service
     build:
       context: .
       dockerfile: ./docker/development.Dockerfile
@@ -14,6 +17,7 @@ services:
       - ./package.json:/usr/app/package.json
       - ./yarn.lock:/usr/app/yarn.lock
       - ./tsconfig.json:/usr/app/tsconfig.json
+      - ./jest.config.js:/usr/app/jest.config.js
       - ./.eslintrc.json:/usr/app/.eslintrc.json
       - ./.eslintignore:/usr/app/.eslintignore
       - ./nodemon.json:/usr/app/nodemon.json

@@ -10,7 +10,8 @@
     "paths": {
       "@domain/*": ["domain/*"],
       "@presentation/*": ["presentation/*"],
-      "@data/*": ["data/*"]
+      "@data/*": ["data/*"],
+      "@infra/*": ["infra/*"]
     },                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     "rootDir": "src",
   },

@@ -66,5 +66,23 @@ describe('Create User Adapter', () => {
         await expect(sut.execute(userData)).rejects.toThrow();
       });
     });
+
+    describe('and create user repository throws', () => {
+      let userData: Omit<User, 'id'>;
+
+      beforeAll(() => {
+        jest.spyOn(createUserRepositoryStub, 'execute').mockRejectedValueOnce(new Error());
+        userData = {
+          name: 'valid_name',
+          lastName: 'valid_lastName',
+          email: 'valid_email',
+          password: 'valid_password',
+        };
+      });
+
+      it('should throw an error', async () => {
+        await expect(sut.execute(userData)).rejects.toThrow();
+      });
+    });
   });
 });

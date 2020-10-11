@@ -64,5 +64,26 @@ describe('SignUpValidatorMiddleware', () => {
         );
       });
     });
+
+    describe('and validator throws', () => {
+      let httpRequest: HttpRequest;
+
+      beforeAll(() => {
+        httpRequest = {
+          body: {
+            name: 'valid_name',
+            lastName: 'valid_lastName',
+            email: 'valid_email',
+            password: 'valid_password',
+            passwordConfirmation: 'valid_password',
+          },
+        };
+        jest.spyOn(validatorStub, 'validate').mockRejectedValue(new Error());
+      });
+
+      it('should throw an error', async () => {
+        await expect(sut.handle(httpRequest)).rejects.toThrow(new Error());
+      });
+    });
   });
 });

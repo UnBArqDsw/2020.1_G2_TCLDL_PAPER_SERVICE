@@ -1,5 +1,7 @@
-import { RequestValidator, RequestValidatorReturn } from '@presentation/validators/RequestValidator';
 import joi from 'joi';
+import {
+  RequestValidator, RequestValidatorReturn,
+} from '@presentation/validators/RequestValidator';
 
 export class CreateUserRequestValidator implements RequestValidator {
   private readonly schema: joi.Schema
@@ -15,7 +17,11 @@ export class CreateUserRequestValidator implements RequestValidator {
   }
 
   async validate(data: any): Promise<RequestValidatorReturn> {
-    await this.schema.validateAsync(data);
-    return { isValid: true, fields: '' };
+    try {
+      await this.schema.validateAsync(data);
+      return { isValid: true, fields: '' };
+    } catch (error) {
+      return { isValid: false, fields: '' };
+    }
   }
 }

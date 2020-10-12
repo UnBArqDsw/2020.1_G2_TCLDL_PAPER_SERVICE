@@ -26,6 +26,18 @@ describe('Bcrypt adapter', () => {
       });
     });
 
+    describe('and BCRYPT_SALT is not defined', () => {
+      beforeAll(async () => {
+        jest.spyOn(bcrypt, 'hash');
+        delete process.env.BCRYPT_SALT;
+        await sut.encrypt('valid_string');
+      });
+
+      it('should call bcrypt with salt 12', () => {
+        expect(bcrypt.hash).toHaveBeenCalledWith('valid_string', 12);
+      });
+    });
+
     describe('and bcrypt.hash throws', () => {
       let result: Promise<string>;
       beforeAll(() => {

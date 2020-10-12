@@ -29,6 +29,7 @@
   "dependencies": {
     "@types/uuid": "^8.3.0",
     "bcrypt": "^5.0.0",
+    "date-fns-tz": "^1.0.12",
     "joi": "^17.2.1",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",

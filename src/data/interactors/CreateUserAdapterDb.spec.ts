@@ -11,7 +11,7 @@ class CreateUserRepositoryStub implements CreateUserRepository {
 }
 
 class UuidGeneratorStub implements UuidGenerator {
-  async generate() {
+  generate() {
     return 'valid_uuid';
   }
 }

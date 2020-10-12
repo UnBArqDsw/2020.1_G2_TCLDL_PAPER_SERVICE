@@ -2,6 +2,7 @@ import joi from 'joi';
 import {
   RequestValidator, RequestValidatorReturn,
 } from '@presentation/validators/RequestValidator';
+import { sanitizeJoiError } from './utils/sanitizeJoiErrors';
 
 export class CreateUserRequestValidator implements RequestValidator {
   private readonly schema: joi.Schema
@@ -22,7 +23,8 @@ export class CreateUserRequestValidator implements RequestValidator {
       return { isValid: true, fields: '' };
     } catch (error) {
       if (error.name === 'ValidationError') {
-        return { isValid: false, fields: '' };
+        const fields = sanitizeJoiError(error);
+        return { isValid: false, fields };
       }
 
       throw error;

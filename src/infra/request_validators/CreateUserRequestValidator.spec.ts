@@ -62,16 +62,24 @@ describe('Create user request validator', () => {
       let result: RequestValidatorReturn;
 
       beforeAll(async () => {
-        const details = {
+        const details = [{
           message: 'valid_message',
           path: ['valid_path'],
           type: 'valid_type',
           context: {
             label: 'valid_label',
           },
-        };
+        },
+        {
+          message: 'valid2_message',
+          path: ['valid2_path'],
+          type: 'valid2_type',
+          context: {
+            label: 'valid2_label',
+          },
+        }];
         jest.spyOn(joi.object(), 'validateAsync').mockRejectedValueOnce(
-          new ValidationErrorStub('ValidationError', true, [details]),
+          new ValidationErrorStub('ValidationError', true, details),
         ).mockRejectedValueOnce(new Error());
         result = await sut.validate({
           valid: true,
@@ -80,6 +88,10 @@ describe('Create user request validator', () => {
 
       it('should return isValid false if validations fails with validation error', () => {
         expect(result.isValid).toBe(false);
+      });
+
+      it('should return labels joined in fields', () => {
+        expect(result.fields).toBe('valid_label,valid2_label');
       });
 
       it('should throw if validations throws with an error that is not validation error',

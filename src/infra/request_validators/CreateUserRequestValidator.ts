@@ -18,10 +18,14 @@ export class CreateUserRequestValidator implements RequestValidator {
 
   async validate(data: any): Promise<RequestValidatorReturn> {
     try {
-      await this.schema.validateAsync(data);
+      await this.schema.validateAsync(data, { abortEarly: false });
       return { isValid: true, fields: '' };
     } catch (error) {
-      return { isValid: false, fields: '' };
+      if (error.name === 'ValidationError') {
+        return { isValid: false, fields: '' };
+      }
+
+      throw error;
     }
   }
 }

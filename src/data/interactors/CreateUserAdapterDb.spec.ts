@@ -24,7 +24,7 @@ class EncrypterStub implements Encrypter {
 
 class DateGeneratorStub implements DateGenerator {
   generate() {
-    return new Date(2012, 12, 12);
+    return 'valid_date';
   }
 }
 
@@ -60,8 +60,8 @@ describe('Create User Adapter', () => {
           ...userData,
           id: 'valid_uuid',
           password: 'hashed_password',
-          createdAt: new Date(2012, 12, 12),
-          updatedAt: new Date(2012, 12, 12),
+          createdAt: 'valid_date',
+          updatedAt: 'valid_date',
         });
       });
 

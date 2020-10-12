@@ -1,3 +1,3 @@
 export interface DateGenerator {
-  generate: () => Date
+  generate: () => string
 }

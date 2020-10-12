@@ -19,9 +19,9 @@ export class CreateUserAdapterDb implements CreateUser {
     this.uuidGenerator = uuidGenerator;
   }
 
-  async execute(userData: Omit<User, 'id'>): Promise<User> {
+  async execute(userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>): Promise<User> {
     const hashedPassword = await this.encrypter.encrypt(userData.password);
-    const uuid = await this.uuidGenerator.generate();
+    const uuid = this.uuidGenerator.generate();
     return this.createUserRepository.execute({ ...userData, id: uuid, password: hashedPassword });
   }
 }

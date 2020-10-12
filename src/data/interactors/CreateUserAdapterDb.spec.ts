@@ -29,7 +29,7 @@ describe('Create User Adapter', () => {
 
   describe('when calls execute', () => {
     describe('and promise resolves', () => {
-      let userData: Omit<User, 'id'>;
+      let userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>;
       let user: User;
 
       beforeAll(async () => {
@@ -54,7 +54,7 @@ describe('Create User Adapter', () => {
     });
 
     describe('and enctypter throws', () => {
-      let userData: Omit<User, 'id'>;
+      let userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>;
 
       beforeAll(() => {
         jest.spyOn(encrypterStub, 'encrypt').mockRejectedValueOnce(new Error());
@@ -72,7 +72,7 @@ describe('Create User Adapter', () => {
     });
 
     describe('and create user repository throws', () => {
-      let userData: Omit<User, 'id'>;
+      let userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>;
 
       beforeAll(() => {
         jest.spyOn(createUserRepositoryStub, 'execute').mockRejectedValueOnce(new Error());

@@ -52,4 +52,20 @@ describe('Sanitize joi errors', () => {
       expect(result).toBe('valid_label,valid2_label');
     });
   });
+
+  describe('and no have context', () => {
+    let result: any;
+    beforeAll(() => {
+      const details = [{
+        message: 'valid_message',
+        path: ['valid_path'],
+        type: 'valid_type',
+      }];
+      result = sanitizeJoiError(new ValidationErrorStub('ValidationError', true, details));
+    });
+
+    it('should return empty string', () => {
+      expect(result).toBe('');
+    });
+  });
 });

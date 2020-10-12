@@ -72,7 +72,7 @@ describe('Create user request validator', () => {
         };
         jest.spyOn(joi.object(), 'validateAsync').mockRejectedValueOnce(
           new ValidationErrorStub('ValidationError', true, [details]),
-        );
+        ).mockRejectedValueOnce(new Error());
         result = await sut.validate({
           valid: true,
         });
@@ -81,6 +81,13 @@ describe('Create user request validator', () => {
       it('should return isValid false if validations fails with validation error', () => {
         expect(result.isValid).toBe(false);
       });
+
+      it('should throw if validations throws with an error that is not validation error',
+        async () => {
+          await expect(sut.validate({
+            valid: false,
+          })).rejects.toThrow();
+        });
     });
   });
 });

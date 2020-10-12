@@ -12,6 +12,30 @@ jest.mock('joi', () => ({
   }),
 }));
 
+class ValidationErrorStub extends Error implements joi.ValidationError {
+  public readonly name: 'ValidationError'
+
+  public readonly isJoi: boolean
+
+  public readonly details: joi.ValidationErrorItem[]
+
+  public readonly _object: any
+
+  constructor(
+    name: 'ValidationError',
+    isJoi: boolean,
+    details: joi.ValidationErrorItem[],
+  ) {
+    super(name);
+    this.name = name;
+    this.isJoi = isJoi;
+    this.details = details;
+  }
+
+  annotate() {
+    return 'annotate_stub';
+  }
+}
 describe('Create user request validator', () => {
   const sut = new CreateUserRequestValidator();
 
@@ -38,13 +62,23 @@ describe('Create user request validator', () => {
       let result: RequestValidatorReturn;
 
       beforeAll(async () => {
-        jest.spyOn(joi.object(), 'validateAsync').mockRejectedValueOnce(new Error());
+        const details = {
+          message: 'valid_message',
+          path: ['valid_path'],
+          type: 'valid_type',
+          context: {
+            label: 'valid_label',
+          },
+        };
+        jest.spyOn(joi.object(), 'validateAsync').mockRejectedValueOnce(
+          new ValidationErrorStub('ValidationError', true, [details]),
+        );
         result = await sut.validate({
           valid: true,
         });
       });
 
-      it('should return isValid false if validations fails', () => {
+      it('should return isValid false if validations fails with validation error', () => {
         expect(result.isValid).toBe(false);
       });
     });

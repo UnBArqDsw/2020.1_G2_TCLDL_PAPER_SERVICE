@@ -7,6 +7,8 @@
     "allowJs": true,
     "strictNullChecks": true,
     "baseUrl": "src",                       /* Base directory to resolve non-absolute module names. */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@domain/*": ["domain/*"],
       "@presentation/*": ["presentation/*"],

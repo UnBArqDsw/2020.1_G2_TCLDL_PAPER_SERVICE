@@ -18,17 +18,16 @@ describe('Create user repository adapter', () => {
   describe('when calls execute', () => {
     describe('and promises resolves', () => {
       let result: User;
-      let user: User;
+      const user: User = {
+        id: 'valid_id',
+        name: 'valid_name',
+        lastName: 'valid_lastName',
+        email: 'valid_email',
+        password: 'valid_password',
+        createdAt: 'valid_date',
+        updatedAt: 'valid_date',
+      };
       beforeAll(async () => {
-        user = {
-          id: 'valid_id',
-          name: 'valid_name',
-          lastName: 'valid_lastName',
-          email: 'valid_email',
-          password: 'valid_password',
-          createdAt: 'valid_date',
-          updatedAt: 'valid_date',
-        };
         result = await sut.execute(user);
       });
 
@@ -46,6 +45,52 @@ describe('Create user repository adapter', () => {
 
       it('should return user', () => {
         expect(result).toEqual(user);
+      });
+    });
+
+    describe('and getRepository rejects', () => {
+      let result: Promise<User>;
+      const user: User = {
+        id: 'valid_id',
+        name: 'valid_name',
+        lastName: 'valid_lastName',
+        email: 'valid_email',
+        password: 'valid_password',
+        createdAt: 'valid_date',
+        updatedAt: 'valid_date',
+      };
+      beforeAll(() => {
+        jest.spyOn(typeorm, 'getRepository').mockImplementationOnce(() => {
+          throw new Error();
+        });
+
+        result = sut.execute(user);
+      });
+
+      it('should throws', () => {
+        expect(result).rejects.toThrow();
+      });
+    });
+
+    describe('and userRepository rejects', () => {
+      let result: Promise<User>;
+      const user: User = {
+        id: 'valid_id',
+        name: 'valid_name',
+        lastName: 'valid_lastName',
+        email: 'valid_email',
+        password: 'valid_password',
+        createdAt: 'valid_date',
+        updatedAt: 'valid_date',
+      };
+      beforeAll(() => {
+        jest.spyOn(typeorm.getRepository('test'), 'save').mockRejectedValueOnce(new Error());
+
+        result = sut.execute(user);
+      });
+
+      it('should throws', () => {
+        expect(result).rejects.toThrow();
       });
     });
   });

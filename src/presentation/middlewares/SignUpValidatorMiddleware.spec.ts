@@ -1,6 +1,7 @@
-import { BadRequestError } from '@presentation/errors/BadRequestError';
-import { HttpRequest } from '@presentation/protocols/Http';
-import { RequestValidator, RequestValidatorReturn } from '@presentation/validators/RequestValidator';
+import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
+import {
+  RequestValidator, RequestValidatorReturn,
+} from '@presentation/validators/RequestValidator';
 import { SignUpValidatorMiddleware } from './SignUpValidatorMiddleware';
 
 class SignUpRequestValidatorStub implements RequestValidator {
@@ -42,8 +43,9 @@ describe('SignUpValidatorMiddleware', () => {
 
     describe('and request validator returns false', () => {
       let httpRequest: HttpRequest;
+      let httpResponse: HttpResponse | undefined;
 
-      beforeAll(() => {
+      beforeAll(async () => {
         httpRequest = {
           body: {
             name: 'invalid_name',
@@ -56,12 +58,16 @@ describe('SignUpValidatorMiddleware', () => {
         jest.spyOn(validatorStub, 'validate').mockResolvedValueOnce(
           { isValid: false, fields: 'name, lastName, email, password, passwordConfirmation' },
         );
+        httpResponse = await sut.handle(httpRequest);
       });
 
-      it('should throw an error', async () => {
-        await expect(sut.handle(httpRequest)).rejects.toThrow(
-          new BadRequestError('name, lastName, email, password, passwordConfirmation'),
-        );
+      it('should returns status code 400', () => {
+        expect(httpResponse?.statusCode).toBe(400);
+      });
+
+      it('should return bad request message in body', () => {
+        expect(httpResponse?.body)
+          .toBe('Invalid request body with error in this fields: name, lastName, email, password, passwordConfirmation');
       });
     });
 
@@ -82,7 +88,7 @@ describe('SignUpValidatorMiddleware', () => {
       });
 
       it('should throw an error', async () => {
-        await expect(sut.handle(httpRequest)).rejects.toThrow(new Error());
+        await expect(sut.handle(httpRequest)).rejects.toThrow();
       });
     });
   });

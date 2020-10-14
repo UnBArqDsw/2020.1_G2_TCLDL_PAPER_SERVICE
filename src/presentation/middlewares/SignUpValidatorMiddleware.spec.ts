@@ -19,8 +19,10 @@ describe('SignUpValidatorMiddleware', () => {
   describe('when call handle', () => {
     describe('and request validator returns true', () => {
       let httpRequest: HttpRequest;
+      let httpResponse: HttpResponse;
+
       const validatorSpy = jest.spyOn(validatorStub, 'validate');
-      beforeAll(() => {
+      beforeAll(async () => {
         httpRequest = {
           body: {
             name: 'valid_name',
@@ -30,10 +32,16 @@ describe('SignUpValidatorMiddleware', () => {
             password_confirmation: 'valid_password',
           },
         };
+
+        httpResponse = await sut.handle(httpRequest);
       });
 
-      it('should not throw error', async () => {
-        await expect(sut.handle(httpRequest)).resolves.toBe(undefined);
+      it('should returns 200', () => {
+        expect(httpResponse.statusCode).toBe(200);
+      });
+
+      it('should return ok in body', () => {
+        expect(httpResponse.body).toBe('ok');
       });
 
       it('should call validator with correct params', () => {
@@ -43,7 +51,7 @@ describe('SignUpValidatorMiddleware', () => {
 
     describe('and request validator returns false', () => {
       let httpRequest: HttpRequest;
-      let httpResponse: HttpResponse | undefined;
+      let httpResponse: HttpResponse;
 
       beforeAll(async () => {
         httpRequest = {
@@ -62,11 +70,11 @@ describe('SignUpValidatorMiddleware', () => {
       });
 
       it('should returns status code 400', () => {
-        expect(httpResponse?.statusCode).toBe(400);
+        expect(httpResponse.statusCode).toBe(400);
       });
 
       it('should return bad request message in body', () => {
-        expect(httpResponse?.body)
+        expect(httpResponse.body)
           .toBe('Invalid request body with error in this fields: name, lastName, email, password, passwordConfirmation');
       });
     });

@@ -30,8 +30,8 @@ export class CreateUserAdapterDb implements CreateUser {
     const createdAt = this.dateGenerator.generate();
     const updatedAt = createdAt;
     return this.createUserRepository.execute({
-      ...userData,
       id: uuid,
+      ...userData,
       password: hashedPassword,
       createdAt,
       updatedAt,

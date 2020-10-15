@@ -4,15 +4,13 @@ services:
   paper-service:
     image: paper-service:dev
     tty: true
-    container_name: paper_service
+    container_name: paper-service-test
+    command: sh -c "yarn && yarn test:coverage"
     build:
       context: .
       dockerfile: ./docker/development.Dockerfile
-    env_file:
-      - ./development.env
-    ports:
-      - 3001:3001
     volumes:
+      - ./coverage:/usr/app/coverage
       - ./package.json:/usr/app/package.json
       - ./jest:/usr/app/jest
       - ./yarn.lock:/usr/app/yarn.lock
@@ -22,19 +20,17 @@ services:
       - ./.eslintignore:/usr/app/.eslintignore
       - ./src:/usr/app/src
     networks:
-      - tcdl-paper-service
+      - tcdl-paper-service-test
 
   paper-service-db:
-    container_name: paper-service-db
+    container_name: paper-service-db-test
     image: postgres:12-alpine
-    volumes:
-      - postgres_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tcdl
+      POSTGRES_DB: tcdl-test
     networks:
-      - tcdl-paper-service
+      - tcdl-paper-service-test
    
   # Uncomment for init pgadmin ui instance
   # paper-pgadmin:
@@ -47,10 +43,6 @@ services:
   #   networks:
   #     - tcdl-paper-service
 
-
-volumes: 
-  postgres_volume: {}
-
 networks:
-  tcdl-paper-service:
+  tcdl-paper-service-test:
     driver: bridge

@@ -1,8 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import app from '@main/config/app';
+import { typeormConfig } from '@main/ormconfig';
 import supertest from 'supertest';
+import { Connection, createConnection } from 'typeorm';
 
 describe('SignUpRoute', () => {
+  let connection: Connection;
+  beforeAll(async () => {
+    connection = await createConnection(typeormConfig);
+  });
+
+  afterAll(async () => {
+    await connection.close();
+  });
+
   const request = supertest(app);
   describe('when post into users', () => {
     describe('and body is valid', () => {
@@ -21,10 +32,10 @@ describe('SignUpRoute', () => {
       test('should return 400', async () => {
         await request.post(`/${process.env.SERVICE_VERSION}/signup`).send({
           name: 'test',
-          email: 'test@test.com',
+          email: 'test2@test.com',
           lastName: 'test',
           password: '123456',
-          passwordConfirmation: '123456',
+          passwordConfirmation: '12345',
         }).expect(400);
       });
     });

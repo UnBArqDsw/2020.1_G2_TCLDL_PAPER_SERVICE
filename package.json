@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "test:coverage": "npm test -- --coverage",
+    "test:coverage": "npm test --coverage --runInBand",
     "start:dev": "tsnd --respawn -r tsconfig-paths/register -P tsconfig.json src/main/server.ts"
   },
   "devDependencies": {
@@ -40,6 +40,7 @@
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.0.12",
     "express": "^4.17.1",
+    "fast-glob": "^3.2.4",
     "joi": "^17.2.1",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",

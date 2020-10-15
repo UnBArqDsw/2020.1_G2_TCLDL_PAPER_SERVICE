@@ -23,7 +23,7 @@ services:
       - tcdl-paper-service-test
 
   paper-service-db:
-    container_name: paper-service-db
+    container_name: paper-service-db-test
     image: postgres:12-alpine
     environment:
       POSTGRES_USER: postgres

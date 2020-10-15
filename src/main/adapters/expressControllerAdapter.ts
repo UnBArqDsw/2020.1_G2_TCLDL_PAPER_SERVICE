@@ -13,7 +13,8 @@ export const adaptController = (controller: Controller) => async (
   const httpResponse = await controller.handle(httpRequest);
 
   if (httpResponse.statusCode <= 200 || httpResponse.statusCode >= 299) {
-    return response.status(httpResponse.statusCode).json(httpResponse.body.message);
+    return response.status(httpResponse.statusCode)
+      .json({ error: httpResponse.body.message });
   }
 
   return response.status(httpResponse.statusCode).json(httpResponse.body);

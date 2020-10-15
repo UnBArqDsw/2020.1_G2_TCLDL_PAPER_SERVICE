@@ -11,9 +11,9 @@ export const adaptMiddleware = (middleware: Middleware) => async (
 
   const httpResponse = await middleware.handle(httpRequest);
 
-  if (httpResponse.statusCode === 200) {
-    return next();
+  if (httpResponse.statusCode !== 200) {
+    return response.status(httpResponse.statusCode).json({ error: httpResponse.body });
   }
 
-  return response.status(httpResponse.statusCode).json(httpResponse.body);
+  return next();
 };

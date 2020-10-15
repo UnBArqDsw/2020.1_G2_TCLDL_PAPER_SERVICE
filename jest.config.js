@@ -7,6 +7,7 @@ module.exports = {
     '!<rootDir>/src/**/*.spec.ts',
     '!<rootDir>/src/**/*.test.ts'
   ],
+  setupFiles: ['./jest/env.js'],
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
   testEnvironment: 'node',

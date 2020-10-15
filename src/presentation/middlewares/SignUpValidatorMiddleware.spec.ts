@@ -75,7 +75,7 @@ describe('SignUpValidatorMiddleware', () => {
 
       it('should return bad request message in body', () => {
         expect(httpResponse.body)
-          .toBe('Invalid request body with error in this fields: name, lastName, email, password, passwordConfirmation');
+          .toBe('Invalid request body with error in these fields: name, lastName, email, password, passwordConfirmation');
       });
     });
 

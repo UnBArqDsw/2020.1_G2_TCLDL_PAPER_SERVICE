@@ -3,7 +3,8 @@
     "transpileOnly": true,
     "ignore": [
       "/node_modules/",
-      "/*.spec.ts"
+      "/*.spec.ts",
+      "/*.test.ts"
     ],
   },
   "compilerOptions": {    

@@ -35,7 +35,7 @@ describe('SignUpController', () => {
       });
 
       it('should return status code 200', () => {
-        expect(httpResponse.statusCode).toBe(200);
+        expect(httpResponse.statusCode).toBe(201);
       });
 
       it('should return user info', () => {

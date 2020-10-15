@@ -7,7 +7,6 @@
     ],
   },
   "compilerOptions": {    
-
     "outDir": "./dist",
     "module": "CommonJS",
     "target": "ES2017",

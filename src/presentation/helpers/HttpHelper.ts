@@ -7,6 +7,11 @@ export const successRequest = (data: any): HttpResponse => ({
   body: data,
 });
 
+export const successCreate = (data: any): HttpResponse => ({
+  statusCode: 201,
+  body: data,
+});
+
 export const badRequest = (message: string): HttpResponse => {
   const badRequestError = new BadRequestError(message);
 

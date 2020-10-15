@@ -13,13 +13,13 @@ export class CreateUserRequestValidator implements RequestValidator {
       lastName: joi.string(),
       email: joi.string().email(),
       password: joi.string(),
-      passwordConfirmation: joi.string(),
+      passwordConfirmation: joi.string().valid(joi.ref('password')),
     });
   }
 
   async validate(data: any): Promise<RequestValidatorReturn> {
     try {
-      await this.schema.validateAsync(data, { abortEarly: false });
+      await this.schema.validateAsync(data, { abortEarly: false, presence: 'required' });
       return { isValid: true, fields: '' };
     } catch (error) {
       if (error.name === 'ValidationError') {

@@ -9,7 +9,9 @@ jest.mock('joi', () => ({
   }),
   string: () => ({
     email: () => {},
+    valid: () => {},
   }),
+  ref: () => {},
 }));
 
 class ValidationErrorStub extends Error implements joi.ValidationError {

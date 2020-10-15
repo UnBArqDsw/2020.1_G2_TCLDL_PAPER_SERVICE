@@ -4,7 +4,6 @@ services:
   paper-service:
     image: paper-service:dev
     tty: true
-    command: sh
     container_name: paper_service
     build:
       context: .
@@ -15,10 +14,43 @@ services:
       - 3001:3001
     volumes:
       - ./package.json:/usr/app/package.json
+      - ./jest:/usr/app/jest
       - ./yarn.lock:/usr/app/yarn.lock
       - ./tsconfig.json:/usr/app/tsconfig.json
       - ./jest.config.js:/usr/app/jest.config.js
       - ./.eslintrc.json:/usr/app/.eslintrc.json
       - ./.eslintignore:/usr/app/.eslintignore
-      - ./nodemon.json:/usr/app/nodemon.json
       - ./src:/usr/app/src
+    networks:
+      - tcdl-paper-service
+
+  paper-service-db:
+    container_name: paper-service-db
+    image: postgres:12-alpine
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tcdl
+    networks:
+      - tcdl-paper-service
+   
+  # Uncomment for init pgadmin ui instance
+  # paper-pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: user@domain.com
+  #     PGADMIN_DEFAULT_PASSWORD: SuperSecret
+  #   ports:
+  #     - 5050:80
+  #   networks:
+  #     - tcdl-paper-service
+
+
+volumes: 
+  postgres_volume: {}
+
+networks:
+  tcdl-paper-service:
+    driver: bridge

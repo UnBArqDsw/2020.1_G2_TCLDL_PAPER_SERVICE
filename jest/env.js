@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 process.env.TZ = 'America/New_York';
+process.env.SERVICE_VERSION = 'v0';
 process.env.DB_HOST = 'paper-service-db';
 process.env.DB_NAME = 'tcdl-test';
 process.env.DB_USERNAME = 'postgres';

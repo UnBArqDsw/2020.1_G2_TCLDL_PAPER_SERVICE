@@ -24,6 +24,9 @@ describe('Create user repository adapter', () => {
         lastName: 'valid_lastName',
         email: 'valid_email',
         password: 'valid_password',
+        bio: 'valid_bio',
+        location: 'valid_location',
+        role: 'valid_role',
         createdAt: 'valid_date',
         updatedAt: 'valid_date',
       };
@@ -56,6 +59,9 @@ describe('Create user repository adapter', () => {
         lastName: 'valid_lastName',
         email: 'valid_email',
         password: 'valid_password',
+        bio: 'valid_bio',
+        location: 'valid_location',
+        role: 'valid_role',
         createdAt: 'valid_date',
         updatedAt: 'valid_date',
       };
@@ -80,6 +86,9 @@ describe('Create user repository adapter', () => {
         lastName: 'valid_lastName',
         email: 'valid_email',
         password: 'valid_password',
+        bio: 'valid_bio',
+        location: 'valid_location',
+        role: 'valid_role',
         createdAt: 'valid_date',
         updatedAt: 'valid_date',
       };

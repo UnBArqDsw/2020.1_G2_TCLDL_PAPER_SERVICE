@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "test:coverage": "npm test --coverage --runInBand",
+    "test:coverage": "npm test -- --coverage --runInBand --silent",
     "start:dev": "tsnd --respawn -r tsconfig-paths/register -P tsconfig.json src/main/server.ts"
   },
   "devDependencies": {

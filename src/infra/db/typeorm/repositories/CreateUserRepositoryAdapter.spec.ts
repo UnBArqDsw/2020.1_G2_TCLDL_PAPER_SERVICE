@@ -6,11 +6,20 @@ import { CreateUserRepositoryAdapter } from './CreateUserRepositoryAdapter';
 jest.mock('typeorm', () => ({
   getRepository: jest.fn().mockReturnValue({
     save: jest.fn().mockImplementation((data) => data),
+    findOne: jest.fn().mockImplementation((data) => data),
   }),
 }));
 
 jest.mock('../entities/UserAdapter', () => ({
   UserAdapter: jest.fn().mockImplementation((data) => data),
+}));
+
+jest.mock('../entities/UserRoleAdapter', () => ({
+  UserRoleAdapter: jest.fn().mockImplementation((data) => data),
+}));
+
+jest.mock('../entities/RoleAdapter', () => ({
+  RoleAdapter: jest.fn().mockImplementation((data) => data),
 }));
 
 describe('Create user repository adapter', () => {

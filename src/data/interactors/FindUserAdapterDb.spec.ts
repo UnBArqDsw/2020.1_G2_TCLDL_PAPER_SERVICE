@@ -3,7 +3,7 @@ import { User } from '@domain/entities/User';
 import FindUserAdapterDb from './FIndUserAdapterDb';
 
 class FindUserRepositoryStub implements FindUserRepository {
-  async execute(_parameter) {
+  async execute(_parameter: string) {
     return {
       id: 'valid_id',
       name: 'valid_name',
@@ -36,6 +36,18 @@ describe('Find user adapter db', () => {
           createdAt: 'valid_createdAt',
           updatedAt: 'valid_updatedAt',
         });
+      });
+    });
+
+    describe('and find user repository throws', () => {
+      let result: Promise<User | undefined>;
+      beforeAll(async () => {
+        jest.spyOn(findUserRepositoryStub, 'execute').mockRejectedValueOnce(new Error());
+        result = sut.execute('test');
+      });
+
+      it('should throws', async () => {
+        await expect(result).rejects.toThrow();
       });
     });
   });

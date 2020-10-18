@@ -13,7 +13,7 @@ export class VerifyIfUserAlreadyExists implements Middleware {
   }
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
-    const userEmail = request.body?.email || request.params?.identifier;
+    const userEmail = request.body?.email;
 
     if (!userEmail) {
       return badRequest('user email');

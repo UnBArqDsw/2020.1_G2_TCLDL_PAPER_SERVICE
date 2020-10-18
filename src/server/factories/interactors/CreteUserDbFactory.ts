@@ -1,7 +1,7 @@
 import { CreateUserAdapterDb } from '@data/interactors/CreateUserAdapterDb';
 import { BcryptAdapter } from '@infra/criptography/BcryptAdapter';
 import { DateGeneratorAdapter } from '@infra/date_generator/DateGeneratorAdapter';
-import { CreateUserRepositoryAdapter } from '@infra/db/typeorm/repositories/CreteUserRepositoryAdapter';
+import { CreateUserRepositoryAdapter } from '@infra/db/typeorm/repositories/CreateUserRepositoryAdapter';
 import { UuidAdapter } from '@infra/uuid/UuidAdapter';
 
 export class CreateUserDbFactory {

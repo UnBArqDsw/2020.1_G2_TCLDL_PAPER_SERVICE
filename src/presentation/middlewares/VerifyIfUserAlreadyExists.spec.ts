@@ -1,5 +1,6 @@
 import { User } from '@domain/entities/User';
 import { FindUser } from '@domain/interactors/FindUser';
+import { BadRequestError } from '@presentation/errors/BadRequestError';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { VerifyIfUserAlreadyExists } from './VerifyIfUserAlreadyExists';
 
@@ -28,6 +29,26 @@ describe('Find user by email middleware', () => {
 
         it('should return 200', () => {
           expect(response.statusCode).toBe(200);
+        });
+      });
+
+      describe('and user not given', () => {
+        let response: HttpResponse;
+        let request: HttpRequest;
+        beforeAll(async () => {
+          request = {
+            body: {},
+            params: {},
+          };
+          response = await sut.handle(request);
+        });
+
+        it('should return 400', () => {
+          expect(response.statusCode).toBe(400);
+        });
+
+        it('should return bad request in body', () => {
+          expect(response.body).toBe(new BadRequestError('user email').message);
         });
       });
     });

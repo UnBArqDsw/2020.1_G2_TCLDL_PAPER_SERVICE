@@ -1,5 +1,5 @@
-name: Docker Compose Actions Workflow
-on: push
+name: paper-service
+on: pull_request
 jobs:
   test:
     runs-on: ubuntu-latest

@@ -18,13 +18,7 @@ export class UserAdapter implements User {
   @Column({ length: 255 })
   password: string
 
-  @Column({ length: 255 })
-  bio: string
-
-  @Column({ length: 255 })
-  location: string
-
-  @Column({ length: 20 })
+  @Column({ nullable: false })
   role: string
 
   @Column('timestamp with time zone')

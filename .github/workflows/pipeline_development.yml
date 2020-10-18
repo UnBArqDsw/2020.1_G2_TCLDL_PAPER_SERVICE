@@ -1,5 +1,8 @@
-name: paper-service
-on: pull_request
+name: paper-service-development
+on: 
+  pull_request:
+    branches:
+      - 'development'
 jobs:
   test:
     runs-on: ubuntu-latest

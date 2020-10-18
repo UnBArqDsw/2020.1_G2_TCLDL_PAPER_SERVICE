@@ -102,5 +102,27 @@ describe('Create user repository adapter', () => {
         expect(result).rejects.toThrow();
       });
     });
+
+    describe('and role is undefined', () => {
+      let result: Promise<User>;
+      const user: User = {
+        id: 'valid_id',
+        name: 'valid_name',
+        lastName: 'valid_lastName',
+        email: 'valid_email',
+        password: 'valid_password',
+        createdAt: 'valid_date',
+        updatedAt: 'valid_date',
+      };
+
+      beforeAll(() => {
+        jest.spyOn(typeorm.getRepository('test'), 'findOne').mockResolvedValue(undefined);
+        result = sut.execute(user);
+      });
+
+      it('should throws', async () => {
+        await expect(result).rejects.toThrow();
+      });
+    });
   });
 });

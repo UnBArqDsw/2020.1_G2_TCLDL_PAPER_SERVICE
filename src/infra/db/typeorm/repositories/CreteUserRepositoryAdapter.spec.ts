@@ -24,7 +24,6 @@ describe('Create user repository adapter', () => {
         lastName: 'valid_lastName',
         email: 'valid_email',
         password: 'valid_password',
-        role: 'valid_role',
         createdAt: 'valid_date',
         updatedAt: 'valid_date',
       };

@@ -4,6 +4,7 @@ import { Encrypter } from '@data/protocols/Encrypter';
 import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
 import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { DateGenerator } from '@data/protocols/DateGenerator';
+import { Role } from '@domain/value_object/Role';
 
 export class CreateUserAdapterDb implements CreateUser {
   private readonly createUserRepository: CreateUserRepository
@@ -14,14 +15,17 @@ export class CreateUserAdapterDb implements CreateUser {
 
   private readonly dateGenerator: DateGenerator
 
+  private readonly role: Role
+
   constructor(
     createUserRepository: CreateUserRepository, encrypter: Encrypter, uuidGenerator: UuidGenerator,
-    dateGenerator: DateGenerator,
+    dateGenerator: DateGenerator, role: Role,
   ) {
     this.createUserRepository = createUserRepository;
     this.encrypter = encrypter;
     this.uuidGenerator = uuidGenerator;
     this.dateGenerator = dateGenerator;
+    this.role = role;
   }
 
   async execute(userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>): Promise<User> {
@@ -29,12 +33,13 @@ export class CreateUserAdapterDb implements CreateUser {
     const uuid = this.uuidGenerator.generate();
     const createdAt = this.dateGenerator.generate();
     const updatedAt = createdAt;
+    const { role } = this;
     return this.createUserRepository.execute({
       id: uuid,
       ...userData,
       password: hashedPassword,
       createdAt,
       updatedAt,
-    });
+    }, role);
   }
 }

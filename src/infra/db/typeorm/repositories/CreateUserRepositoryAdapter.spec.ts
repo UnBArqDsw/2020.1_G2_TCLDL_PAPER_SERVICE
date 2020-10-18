@@ -1,7 +1,7 @@
 import { User } from '@domain/entities/User';
 import * as typeorm from 'typeorm';
 import { UserAdapter } from '../entities/UserAdapter';
-import { CreateUserRepositoryAdapter } from './CreteUserRepositoryAdapter';
+import { CreateUserRepositoryAdapter } from './CreateUserRepositoryAdapter';
 
 jest.mock('typeorm', () => ({
   getRepository: jest.fn().mockReturnValue({
@@ -56,7 +56,6 @@ describe('Create user repository adapter', () => {
         lastName: 'valid_lastName',
         email: 'valid_email',
         password: 'valid_password',
-        role: 'valid_role',
         createdAt: 'valid_date',
         updatedAt: 'valid_date',
       };
@@ -81,7 +80,6 @@ describe('Create user repository adapter', () => {
         lastName: 'valid_lastName',
         email: 'valid_email',
         password: 'valid_password',
-        role: 'valid_role',
         createdAt: 'valid_date',
         updatedAt: 'valid_date',
       };

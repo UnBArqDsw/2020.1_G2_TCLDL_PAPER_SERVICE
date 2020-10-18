@@ -1,4 +1,4 @@
-import { UserRole } from '@domain/value_object/RoleUserValueObject';
+import { UserRole } from '@domain/value_object/Role';
 import * as typeorm from 'typeorm';
 import { UserAdapter } from './UserAdapter';
 

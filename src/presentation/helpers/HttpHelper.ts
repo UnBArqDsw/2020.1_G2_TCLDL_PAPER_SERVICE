@@ -1,6 +1,7 @@
 import { BadRequestError } from '@presentation/errors/BadRequestError';
 import { NotFoundRequestError } from '@presentation/errors/NotFoundRequestError';
 import { ServerError } from '@presentation/errors/ServerError';
+import { ValidationRequestError } from '@presentation/errors/ValidationRequestError';
 import { HttpResponse } from '@presentation/protocols/Http';
 
 export const successRequest = (data: any): HttpResponse => ({
@@ -28,6 +29,15 @@ export const notFoundRequest = (message: string): HttpResponse => {
   return {
     statusCode: notFoundRequestError.statusCode,
     body: notFoundRequestError.message,
+  };
+};
+
+export const validationError = (message: string): HttpResponse => {
+  const validationRequestError = new ValidationRequestError(message);
+
+  return {
+    statusCode: validationRequestError.statusCode,
+    body: validationRequestError.message,
   };
 };
 

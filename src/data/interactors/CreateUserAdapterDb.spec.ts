@@ -3,8 +3,18 @@ import { Encrypter } from '@data/protocols/Encrypter';
 import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
 import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { DateGenerator } from '@data/protocols/DateGenerator';
+import { Role } from '@domain/value_object/Role';
 import { CreateUserAdapterDb } from './CreateUserAdapterDb';
 
+class RoleStub implements Role {
+  readonly id: string
+
+  readonly type: 'Admin' | 'SubAdmin' | 'Collab'
+
+  constructor(data: Role) {
+    Object.assign(this, data);
+  }
+}
 class CreateUserRepositoryStub implements CreateUserRepository {
   async execute(userData: User): Promise<User> {
     return userData;
@@ -33,8 +43,9 @@ describe('Create User Adapter', () => {
   const encrypterStub = new EncrypterStub();
   const uuidGeneratorStub = new UuidGeneratorStub();
   const dateGeneratorStub = new DateGeneratorStub();
+  const roleStub = new RoleStub({ id: 'valid_id', type: 'Collab' });
   const sut = new CreateUserAdapterDb(
-    createUserRepositoryStub, encrypterStub, uuidGeneratorStub, dateGeneratorStub,
+    createUserRepositoryStub, encrypterStub, uuidGeneratorStub, dateGeneratorStub, roleStub,
   );
 
   describe('when calls execute', () => {

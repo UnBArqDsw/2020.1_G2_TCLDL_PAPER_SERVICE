@@ -15,4 +15,9 @@ export class UserRoleAdapter implements UserRole {
   @PrimaryColumn()
   role: RoleAdapter;
 
+  constructor(user: UserAdapter, role: RoleAdapter) {
+    this.user = user;
+    this.role = role;
+  }
+
 }

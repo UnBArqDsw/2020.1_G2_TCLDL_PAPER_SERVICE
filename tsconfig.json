@@ -30,8 +30,8 @@
       "@infra/*": [
         "infra/*"
       ],
-      "@main/*": [
-        "main/*"
+      "@server/*": [
+        "server/*"
       ]
     },
   },

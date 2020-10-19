@@ -13,6 +13,10 @@ export const successCreate = (data: any): HttpResponse => ({
   body: data,
 });
 
+export const successRemove = (): HttpResponse => ({
+  statusCode: 204,
+});
+
 export const badRequest = (message: string): HttpResponse => {
   const badRequestError = new BadRequestError(message);
 

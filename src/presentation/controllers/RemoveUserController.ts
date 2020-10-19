@@ -1,5 +1,5 @@
 import { RemoveUserRepository } from '@data/repositories/RemoveUserRepository';
-import { successRemove } from '@presentation/helpers/HttpHelper';
+import { serverError, successRemove } from '@presentation/helpers/HttpHelper';
 import { Controller } from '@presentation/protocols/Controller';
 import { HttpRequest } from '@presentation/protocols/Http';
 
@@ -12,7 +12,11 @@ export class RemoveUserController implements Controller {
 
   async handle(request: HttpRequest) {
     const { userId } = request.params;
-    await this.removeUserRepository.execute(userId);
-    return successRemove();
+    try {
+      await this.removeUserRepository.execute(userId);
+      return successRemove();
+    } catch (error) {
+      return serverError();
+    }
   }
 }

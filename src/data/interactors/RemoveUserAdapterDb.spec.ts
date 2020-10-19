@@ -22,5 +22,18 @@ describe('Remove user adapter db', () => {
         expect(removeUserRepositoryStub.execute).toHaveBeenLastCalledWith('valid_id');
       });
     });
+
+    describe('and promise rejects', () => {
+      let result: Promise<void>;
+
+      beforeAll(async () => {
+        jest.spyOn(removeUserRepositoryStub, 'execute').mockRejectedValueOnce(new Error());
+        result = sut.execute('valid_id');
+      });
+
+      test('should throws', async () => {
+        await expect(result).rejects.toThrow();
+      });
+    });
   });
 });

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import app from '@main/config/app';
-import { typeormConfig } from '@main/ormconfig';
+import app from 'server/config/app';
+import { typeormConfig } from 'server/ormconfig';
 import supertest from 'supertest';
 import { Connection, createConnection } from 'typeorm';
 

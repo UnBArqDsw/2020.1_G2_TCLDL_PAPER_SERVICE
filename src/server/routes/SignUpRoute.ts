@@ -1,8 +1,8 @@
-import { SignUpControllerFactory } from '@main/factories/controllers/SignUpControllerFactory';
+import { SignUpControllerFactory } from 'server/factories/controllers/SignUpControllerFactory';
 import { SignUpValidatorMiddlewareFactory }
-  from '@main/factories/middlewares/SignUpValidatorMiddlewareFactory';
+  from 'server/factories/middlewares/SignUpValidatorMiddlewareFactory';
 import { VerifyIfUserAlreadyExistsMiddlewareFactory }
-  from '@main/factories/middlewares/VerifyIfUserAlreadyExistsMiddlewareFactory';
+  from 'server/factories/middlewares/VerifyIfUserAlreadyExistsMiddlewareFactory';
 import { Router } from 'express';
 
 const signupController = new SignUpControllerFactory().create();

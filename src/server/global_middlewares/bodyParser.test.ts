@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import app from '@main/config/app';
+import app from 'server/config/app';
 import supertest from 'supertest';
 
 describe('Body Parser Middleware', () => {

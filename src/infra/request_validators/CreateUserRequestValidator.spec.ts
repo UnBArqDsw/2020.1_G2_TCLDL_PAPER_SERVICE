@@ -2,10 +2,9 @@ import { RequestValidatorReturn } from '@presentation/validators/RequestValidato
 import joi from 'joi';
 import { CreateUserRequestValidator } from './CreateUserRequestValidator';
 
-const validateAsyncMocked = jest.fn(async () => {});
 jest.mock('joi', () => ({
   object: () => ({
-    validateAsync: validateAsyncMocked,
+    validateAsync: jest.fn(async () => {}),
   }),
   string: () => ({
     email: () => {},

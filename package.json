@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "test:coverage": "npm test -- --coverage --runInBand --silent",
-    "start:dev": "tsnd --respawn -r tsconfig-paths/register -P tsconfig.json src/main/server.ts"
+    "start:dev": "tsnd --respawn -r tsconfig-paths/register -P tsconfig.json src/server/server.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

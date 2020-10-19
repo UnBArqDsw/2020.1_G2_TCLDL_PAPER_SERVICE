@@ -3,7 +3,7 @@ import { Controller } from '@presentation/protocols/Controller';
 import { serverError, successCreate } from '@presentation/helpers/HttpHelper';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 
-export class SignUpController implements Controller {
+export class ReadUserController implements Controller {
   private readonly readUser: ReadUser
 
   constructor(readUser: ReadUser) {
@@ -12,6 +12,7 @@ export class SignUpController implements Controller {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
+      console.log('ReadUserController', request, request.body)
       const user = await this.readUser.execute(request.body);
       return successCreate(user);
     } catch (error) {

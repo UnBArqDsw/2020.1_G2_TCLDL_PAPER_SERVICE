@@ -1,5 +1,5 @@
-import { Controller } from '@presentation/protocols/Controller';
+import { ExpressControllerAdapter } from '@main/adapters/ExpressControllerAdapter';
 
 export interface ControllerFactory {
-  create: () => Controller
+  create: () => ExpressControllerAdapter
 }

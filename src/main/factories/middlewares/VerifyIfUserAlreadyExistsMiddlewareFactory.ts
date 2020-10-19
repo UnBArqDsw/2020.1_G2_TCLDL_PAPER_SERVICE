@@ -1,9 +1,13 @@
+import { ExpressMiddlewareAdapter } from '@main/adapters/ExpressMiddlewareAdapter';
 import { VerifyIfUserAlreadyExistsMiddleware } from '@presentation/middlewares/VerifyIfUserAlreadyExistsMiddleware';
 import { FindUserDbFactory } from '../interactors/FindUserDbFactory';
 
 export class VerifyIfUserAlreadyExistsMiddlewareFactory {
-  create(): VerifyIfUserAlreadyExistsMiddleware {
+  create() {
     const findUserDb = new FindUserDbFactory().create();
-    return new VerifyIfUserAlreadyExistsMiddleware(findUserDb);
+    const verifyIfUserAlreadyExistsMiddleware = new VerifyIfUserAlreadyExistsMiddleware(
+      findUserDb,
+    );
+    return ExpressMiddlewareAdapter.adapt(verifyIfUserAlreadyExistsMiddleware);
   }
 }

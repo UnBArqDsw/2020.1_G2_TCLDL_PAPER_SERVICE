@@ -36,6 +36,6 @@ export const serverError = (): HttpResponse => {
 
   return {
     statusCode: httpServerError.statusCode,
-    body: httpServerError,
+    body: httpServerError.message,
   };
 };

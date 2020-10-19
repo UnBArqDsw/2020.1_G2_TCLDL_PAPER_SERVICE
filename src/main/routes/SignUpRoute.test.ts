@@ -8,11 +8,11 @@ describe('SignUpRoute', () => {
   let connection: Connection;
   beforeAll(async () => {
     connection = await createConnection(typeormConfig);
-    await connection.dropDatabase();
     await connection.synchronize();
   });
 
   afterAll(async () => {
+    await connection.dropDatabase();
     await connection.close();
   });
 

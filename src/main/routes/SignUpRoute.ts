@@ -1,5 +1,3 @@
-import { adaptController } from '@main/adapters/expressControllerAdapter';
-import { adaptMiddleware } from '@main/adapters/expressMiddlewareAdapter';
 import { SignUpControllerFactory } from '@main/factories/controllers/SignUpControllerFactory';
 import { SignUpValidatorMiddlewareFactory }
   from '@main/factories/middlewares/SignUpValidatorMiddlewareFactory';
@@ -14,7 +12,7 @@ const verifyIfUserAlreadyExistsMiddleware = new VerifyIfUserAlreadyExistsMiddlew
 
 export default (router: Router) => {
   router.post('/signup',
-    adaptMiddleware(signupValidatorMiddleware),
-    adaptMiddleware(verifyIfUserAlreadyExistsMiddleware),
-    adaptController(signupController));
+    signupValidatorMiddleware,
+    verifyIfUserAlreadyExistsMiddleware,
+    signupController);
 };

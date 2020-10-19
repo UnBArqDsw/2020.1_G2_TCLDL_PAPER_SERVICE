@@ -1,5 +1,5 @@
-import { Middleware } from '@presentation/protocols/Middleware';
+import { ExpressMiddlewareAdapter } from '@main/adapters/ExpressMiddlewareAdapter';
 
 export interface MiddlewareFactory {
-  create: () => Middleware
+  create: () => ExpressMiddlewareAdapter
 }

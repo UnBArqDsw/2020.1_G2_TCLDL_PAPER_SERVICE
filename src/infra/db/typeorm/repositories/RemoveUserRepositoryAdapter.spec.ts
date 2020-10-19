@@ -23,5 +23,33 @@ describe('Remove user repository adapter', () => {
         expect(typeorm.getRepository('test').delete).toHaveBeenLastCalledWith({ id: 'valid_id' });
       });
     });
+
+    describe('and getRepository throws', () => {
+      let result: Promise<void>;
+      beforeAll(() => {
+        jest.spyOn(typeorm, 'getRepository').mockImplementationOnce(() => {
+          throw new Error();
+        });
+        result = sut.execute('valid_id');
+      });
+
+      test('should throws', () => {
+        expect(result).rejects.toThrow();
+      });
+    });
+
+    describe('and delete throws', () => {
+      let result: Promise<void>;
+      beforeAll(() => {
+        jest.spyOn(typeorm, 'getRepository').mockImplementationOnce(() => {
+          throw new Error();
+        });
+        result = sut.execute('valid_id');
+      });
+
+      test('should throws', () => {
+        expect(result).rejects.toThrow();
+      });
+    });
   });
 });

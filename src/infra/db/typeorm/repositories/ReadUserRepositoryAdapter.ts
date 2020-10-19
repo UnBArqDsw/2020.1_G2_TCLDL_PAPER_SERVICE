@@ -4,9 +4,8 @@ import { getRepository } from 'typeorm';
 import { UserAdapter } from '../entities/UserAdapter';
 
 export class ReadUserRepositoryAdapter implements ReadUserRepository {
-  async execute(data: User): Promise<User> {
+  async execute(id: string): Promise<User> {
     const userRepository = getRepository(UserAdapter);
-    const user = new UserAdapter(data);
     return userRepository.findOneById(id);
   }
 }

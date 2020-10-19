@@ -9,7 +9,6 @@ export default class FindUserAdapterDb implements FindUser {
   }
 
   async execute(parameter: string) {
-    const user = this.findUserRepository.execute(parameter);
-    return user;
+    return this.findUserRepository.execute(parameter);
   }
 }

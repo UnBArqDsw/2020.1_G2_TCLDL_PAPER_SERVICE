@@ -1,4 +1,4 @@
-import { ExpressMiddlewareAdapter } from 'server/adapters/ExpressMiddlewareAdapter';
+import { ExpressMiddlewareAdapter } from '@server/adapters/ExpressMiddlewareAdapter';
 import { VerifyIfUserAlreadyExistsMiddleware } from '@presentation/middlewares/VerifyIfUserAlreadyExistsMiddleware';
 import { FindUserDbFactory } from '../interactors/FindUserDbFactory';
 

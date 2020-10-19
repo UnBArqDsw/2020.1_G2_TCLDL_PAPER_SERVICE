@@ -1,5 +1,5 @@
-import { ExpressControllerAdapter } from 'server/adapters/ExpressControllerAdapter';
-import { ControllerFactory } from 'server/protocols/ControllerFactory';
+import { ExpressControllerAdapter } from '@server/adapters/ExpressControllerAdapter';
+import { ControllerFactory } from '@server/protocols/ControllerFactory';
 import { SignUpController } from '@presentation/controllers/SignUpController';
 import { CreateUserDbFactory } from '../interactors/CreteUserDbFactory';
 

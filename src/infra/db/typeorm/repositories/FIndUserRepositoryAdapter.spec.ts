@@ -1,5 +1,6 @@
 import { FindUserRepository } from '@data/repositories/FindUserRepository';
 import { User } from '@domain/entities/User';
+import * as typeorm from 'typeorm';
 import { FindUserRepositoryAdapter } from './FindUserRepositoryAdapter';
 
 jest.mock('typeorm', () => ({
@@ -38,6 +39,12 @@ describe('Find user repository adapter', () => {
           password: 'valid_password',
           createdAt: 'valid_createdAt',
           updatedAt: 'valid_updatedAt',
+        });
+      });
+
+      it('should call findOne with correct params', () => {
+        expect(typeorm.getRepository('test').findOne).toHaveBeenCalledWith({
+          where: { email: 'test' },
         });
       });
     });

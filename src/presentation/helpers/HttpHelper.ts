@@ -1,5 +1,4 @@
 import { BadRequestError } from '@presentation/errors/BadRequestError';
-import { NotFoundRequestError } from '@presentation/errors/NotFoundRequestError';
 import { ServerError } from '@presentation/errors/ServerError';
 import { ValidationRequestError } from '@presentation/errors/ValidationRequestError';
 import { HttpResponse } from '@presentation/protocols/Http';
@@ -20,15 +19,6 @@ export const badRequest = (message: string): HttpResponse => {
   return {
     statusCode: badRequestError.statusCode,
     body: badRequestError.message,
-  };
-};
-
-export const notFoundRequest = (message: string): HttpResponse => {
-  const notFoundRequestError = new NotFoundRequestError(message);
-
-  return {
-    statusCode: notFoundRequestError.statusCode,
-    body: notFoundRequestError.message,
   };
 };
 

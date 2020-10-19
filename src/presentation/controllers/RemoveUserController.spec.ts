@@ -26,5 +26,21 @@ describe('Remove user controller', () => {
         expect(httpResponse.statusCode).toBe(204);
       });
     });
+
+    describe('and promise rejects', () => {
+      const httpRequest: HttpRequest = {
+        params: 'valid_id',
+      };
+      let httpResponse: HttpResponse;
+
+      beforeAll(async () => {
+        jest.spyOn(removeUserStub, 'execute').mockRejectedValueOnce(new Error());
+        httpResponse = await sut.handle(httpRequest);
+      });
+
+      test('should return 500 if remove user throws', () => {
+        expect(httpResponse.statusCode).toBe(500);
+      });
+    });
   });
 });

@@ -37,10 +37,7 @@ describe('Find user by email middleware', () => {
         let response: HttpResponse;
         let request: HttpRequest;
         beforeAll(async () => {
-          request = {
-            body: {},
-            params: {},
-          };
+          request = {};
           response = await sut.handle(request);
         });
 

@@ -1,12 +1,12 @@
-import { ReadUserRepository } from '@data/repositories/ReadUserRepository';
+import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
 import { User } from '@domain/entities/User';
 import { getRepository } from 'typeorm';
 import { UserAdapter } from '../entities/UserAdapter';
 
-export class ReadUserRepositoryAdapter implements ReadUserRepository {
+export class CreateUserRepositoryAdapter implements CreateUserRepository {
   async execute(data: User): Promise<User> {
     const userRepository = getRepository(UserAdapter);
     const user = new UserAdapter(data);
-    return userRepository.findOneById(id);
+    return userRepository.save(user);
   }
 }

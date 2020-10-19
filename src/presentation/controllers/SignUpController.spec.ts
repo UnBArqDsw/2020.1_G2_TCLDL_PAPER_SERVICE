@@ -70,7 +70,7 @@ describe('SignUpController', () => {
       });
 
       it('should return message error', () => {
-        expect(httpResponse.body).toEqual(new ServerError());
+        expect(httpResponse.body).toEqual(new ServerError().message);
       });
     });
   });

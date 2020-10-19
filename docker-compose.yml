@@ -28,7 +28,7 @@ services:
     container_name: paper-service-db
     image: postgres:12-alpine
     volumes:
-      - postgres_volume:/var/lib/postgresql/data
+      - postgres_volume:/var/lib/postgresql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

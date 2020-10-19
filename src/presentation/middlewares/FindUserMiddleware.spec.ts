@@ -1,9 +1,10 @@
+import { User } from '@domain/entities/User';
 import { FindUser } from '@domain/interactors/FindUser';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { FindUserMiddleware } from './FindUserMiddleware';
 
 class FindUserStub implements FindUser {
-  async execute(_params: string) {
+  async execute(_params: string): Promise<User | undefined> {
     return {
       id: 'valid_id',
       name: 'valid_name',
@@ -35,6 +36,17 @@ describe('Find user middleware', () => {
 
       test('should return 200 if user is found', () => {
         expect(httpResponse.statusCode).toBe(200);
+      });
+
+      describe('and user is not found', () => {
+        beforeAll(async () => {
+          jest.spyOn(findUserStub, 'execute').mockResolvedValueOnce(undefined);
+          httpResponse = await sut.handle(httpRequest);
+        });
+
+        test('should return 404 if user is not found', () => {
+          expect(httpResponse.statusCode).toBe(404);
+        });
       });
     });
   });

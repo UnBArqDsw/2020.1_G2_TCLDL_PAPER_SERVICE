@@ -27,7 +27,7 @@ describe('Find user repository adapter', () => {
     describe('and promise resolves', () => {
       let result: User | undefined;
       beforeAll(async () => {
-        result = await sut.execute('test');
+        result = await sut.execute({ id: 'test' });
       });
 
       it('should return user', () => {
@@ -44,7 +44,7 @@ describe('Find user repository adapter', () => {
 
       it('should call findOne with correct params', () => {
         expect(typeorm.getRepository('test').findOne).toHaveBeenCalledWith({
-          where: { email: 'test' },
+          where: { id: 'test' },
         });
       });
     });
@@ -55,7 +55,7 @@ describe('Find user repository adapter', () => {
         jest.spyOn(typeorm, 'getRepository').mockImplementationOnce(() => {
           throw new Error();
         });
-        result = sut.execute('test');
+        result = sut.execute({ email: 'test' });
       });
 
       it('should throws', () => {
@@ -68,7 +68,7 @@ describe('Find user repository adapter', () => {
       beforeAll(() => {
         jest.spyOn(typeorm.getRepository('test'), 'findOne')
           .mockRejectedValueOnce(new Error());
-        result = sut.execute('test');
+        result = sut.execute({ id: 'test' });
       });
 
       it('should throws', () => {

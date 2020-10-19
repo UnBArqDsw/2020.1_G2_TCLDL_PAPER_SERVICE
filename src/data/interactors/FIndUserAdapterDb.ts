@@ -8,7 +8,9 @@ export default class FindUserAdapterDb implements FindUser {
     this.findUserRepository = findUserRepository;
   }
 
-  async execute(parameter: string) {
-    return this.findUserRepository.execute(parameter);
+  async execute(parameter: string, field: 'id'| 'email') {
+    const attribute = { [field]: parameter };
+
+    return this.findUserRepository.execute(attribute);
   }
 }

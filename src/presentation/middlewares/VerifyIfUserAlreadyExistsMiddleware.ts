@@ -19,7 +19,7 @@ export class VerifyIfUserAlreadyExistsMiddleware implements Middleware {
       return badRequest('user email');
     }
 
-    const user = await this.findUser.execute(userEmail);
+    const user = await this.findUser.execute(userEmail, 'email');
 
     if (user) {
       return validationError('user already exists.');

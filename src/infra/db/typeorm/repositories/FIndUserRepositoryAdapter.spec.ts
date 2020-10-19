@@ -48,5 +48,32 @@ describe('Find user repository adapter', () => {
         });
       });
     });
+
+    describe('and getRepository throws', () => {
+      let result: Promise<User | undefined>;
+      beforeAll(() => {
+        jest.spyOn(typeorm, 'getRepository').mockImplementationOnce(() => {
+          throw new Error();
+        });
+        result = sut.execute('test');
+      });
+
+      it('should throws', () => {
+        expect(result).rejects.toThrow();
+      });
+    });
+
+    describe('and findOne throws', () => {
+      let result: Promise<User | undefined>;
+      beforeAll(() => {
+        jest.spyOn(typeorm.getRepository('test'), 'findOne')
+          .mockRejectedValueOnce(new Error());
+        result = sut.execute('test');
+      });
+
+      it('should throws', () => {
+        expect(result).rejects.toThrow();
+      });
+    });
   });
 });

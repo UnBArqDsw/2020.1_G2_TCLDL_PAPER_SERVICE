@@ -2,7 +2,7 @@ import { User } from '@domain/entities/User';
 import { ReadUser } from '@domain/interactors/ReadUser';
 import { ReadUserRepository } from '@data/repositories/ReadUserRepository';
 
-export class CreateUserAdapterDb implements ReadUser {
+export class ReadUserAdapterDb implements ReadUser {
   private readonly readUserRepository: ReadUserRepository
 
   constructor(
@@ -11,13 +11,7 @@ export class CreateUserAdapterDb implements ReadUser {
     this.readUserRepository = readUserRepository;
   }
 
-  async execute(userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>): Promise<User> {
-    return this.readUserRepository.execute({
-      id: uuid,
-      ...userData,
-      password: hashedPassword,
-      createdAt,
-      updatedAt,
-    });
+  async execute(id: string): Promise<User> {
+    return this.readUserRepository.execute(id);
   }
 }

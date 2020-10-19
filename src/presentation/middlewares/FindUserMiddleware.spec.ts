@@ -31,11 +31,16 @@ describe('Find user middleware', () => {
       let httpResponse: HttpResponse;
 
       beforeAll(async () => {
+        jest.spyOn(findUserStub, 'execute');
         httpResponse = await sut.handle(httpRequest);
       });
 
       test('should return 200 if user is found', () => {
         expect(httpResponse.statusCode).toBe(200);
+      });
+
+      test('should call find user with correct params', () => {
+        expect(findUserStub.execute).toHaveBeenCalledWith('valid_id', 'id');
       });
 
       describe('and user is not found', () => {

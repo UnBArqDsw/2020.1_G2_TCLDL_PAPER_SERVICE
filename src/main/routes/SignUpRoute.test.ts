@@ -8,6 +8,8 @@ describe('SignUpRoute', () => {
   let connection: Connection;
   beforeAll(async () => {
     connection = await createConnection(typeormConfig);
+    await connection.dropDatabase();
+    await connection.synchronize();
   });
 
   afterAll(async () => {
@@ -43,6 +45,18 @@ describe('SignUpRoute', () => {
     describe('and body fields is missing', () => {
       test('should return 400', async () => {
         await request.post(`/${process.env.SERVICE_VERSION}/signup`).send({}).expect(400);
+      });
+    });
+
+    describe('and users already exists', () => {
+      test('should return 422', async () => {
+        await request.post(`/${process.env.SERVICE_VERSION}/signup`).send({
+          name: 'test',
+          email: 'test@test.com',
+          lastName: 'test',
+          password: '123456',
+          passwordConfirmation: '123456',
+        }).expect(422);
       });
     });
   });

@@ -5,7 +5,7 @@ import {
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { Middleware } from '@presentation/protocols/Middleware';
 
-export class VerifyIfUserAlreadyExists implements Middleware {
+export class VerifyIfUserAlreadyExistsMiddleware implements Middleware {
   private readonly findUser: FindUser
 
   constructor(findUser: FindUser) {

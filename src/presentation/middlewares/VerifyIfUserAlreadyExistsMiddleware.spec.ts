@@ -3,7 +3,7 @@ import { FindUser } from '@domain/interactors/FindUser';
 import { BadRequestError } from '@presentation/errors/BadRequestError';
 import { ValidationRequestError } from '@presentation/errors/ValidationRequestError';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
-import { VerifyIfUserAlreadyExists } from './VerifyIfUserAlreadyExists';
+import { VerifyIfUserAlreadyExistsMiddleware } from './VerifyIfUserAlreadyExistsMiddleware';
 
 class FindUserStub implements FindUser {
   async execute(_parameter: string): Promise<User | undefined> {
@@ -13,7 +13,7 @@ class FindUserStub implements FindUser {
 
 describe('Find user by email middleware', () => {
   const findUserStub = new FindUserStub();
-  const sut = new VerifyIfUserAlreadyExists(findUserStub);
+  const sut = new VerifyIfUserAlreadyExistsMiddleware(findUserStub);
   describe('when calls execute', () => {
     describe('and promise resolves', () => {
       describe('and user not found', () => {

@@ -11,7 +11,7 @@ export class FindUserMiddleware implements Middleware {
   }
 
   async handle(request: HttpRequest) {
-    const userId = request.params;
+    const { userId } = request.params;
 
     const user = await this.findUser.execute(userId, 'id');
 

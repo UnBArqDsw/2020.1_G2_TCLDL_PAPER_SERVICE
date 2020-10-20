@@ -12,8 +12,7 @@ export class ReadUserController implements Controller {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      console.log('ReadUserController', request, request.body)
-      const user = await this.readUser.execute(request.body);
+      const user = await this.readUser.execute(request.params);
       return successCreate(user);
     } catch (error) {
       return serverError();

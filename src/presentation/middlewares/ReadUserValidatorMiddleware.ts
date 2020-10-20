@@ -11,7 +11,7 @@ export class ReadUserValidatorMiddleware implements Middleware {
   }
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
-    const { isValid, fields } = await this.requestValidator.validate(request.body);
+    const { isValid, fields } = await this.requestValidator.validate(request.params);
     if (!isValid) {
       return badRequest(fields);
     }

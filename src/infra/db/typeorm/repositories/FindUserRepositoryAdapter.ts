@@ -5,6 +5,7 @@ import { UserAdapter } from '../entities/UserAdapter';
 export class FindUserRepositoryAdapter implements FindUserRepository {
   async execute(parameter: findUserAttribute): Promise<UserAdapter | undefined> {
     const userRepository = getRepository(UserAdapter);
+    console.log(parameter)
     return userRepository.findOne({ where: parameter });
   }
 }

@@ -9,6 +9,6 @@ const readUserController = new ReadUserControllerFactory().create();
 const readUserValidatorMiddleware = new ReadUserValidatorMiddlewareFactory().create();
 
 export default (router: Router) => {
-  router.post('/user/:id',
+  router.get('/user/:id',
     adaptMiddleware(readUserValidatorMiddleware), adaptController(readUserController));
 };

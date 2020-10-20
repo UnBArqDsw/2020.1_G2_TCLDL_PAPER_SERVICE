@@ -12,7 +12,7 @@ export class ReadUserController implements Controller {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const user = await this.readUser.execute(request.params);
+      const user = await this.readUser.execute(request.params.id, 'id');
       return successCreate(user);
     } catch (error) {
       return serverError();

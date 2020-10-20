@@ -1,5 +1,9 @@
 import { User } from '@domain/entities/User';
 
-export interface ReadUserRepository {
-  execute: (data: string) => Promise<User>
+export interface findUserAttribute {
+  id?: string
+  email?: string
+}
+export interface FindUserRepository {
+  execute: (attribute: findUserAttribute) => Promise<User | undefined>
 }

@@ -1,18 +1,25 @@
-import { ReadUser } from '@domain/interactors/ReadUser';
+
+import { FindUser } from '@domain/interactors/FindUser';
 import { Controller } from '@presentation/protocols/Controller';
+import { notFound, successRequest } from '@presentation/helpers/HttpHelper';
 import { serverError, successCreate } from '@presentation/helpers/HttpHelper';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 
 export class ReadUserController implements Controller {
-  private readonly readUser: ReadUser
+  private readonly findUser: FindUser
 
-  constructor(readUser: ReadUser) {
-    this.readUser = readUser;
+  constructor(findUser: FindUser) {
+    this.findUser = findUser;
   }
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const user = await this.readUser.execute(request.params.id, 'id');
+      console.log('request', request)
+      const { id } = request.params
+      const user = await this.findUser.execute(id, 'id');
+      if (!user) {
+        return notFound('user');
+      }
       return successCreate(user);
     } catch (error) {
       return serverError();

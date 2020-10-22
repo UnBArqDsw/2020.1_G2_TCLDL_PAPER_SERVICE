@@ -1,4 +1,6 @@
-export interface Role {
+import { RoleUsers } from '@domain/agreggates/RoleUsers';
+
+export interface Role extends RoleUsers{
   id: string;
-  type: 'Admin' | 'SubAdmin' | 'Collab';
+  type: 'admin' | 'sub_admin' | 'collab';
 }

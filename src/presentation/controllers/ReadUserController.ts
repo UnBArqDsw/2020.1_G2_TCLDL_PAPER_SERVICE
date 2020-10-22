@@ -14,7 +14,6 @@ export class ReadUserController implements Controller {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      console.log('request', request)
       const { id } = request.params
       const user = await this.findUser.execute(id, 'id');
       if (!user) {

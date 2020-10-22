@@ -7,5 +7,5 @@ export interface UpdateUserAttribute {
 }
 
 export interface UpdateUserRepository {
-  execute: (data: UpdateUserAttribute) => Promise<User | undefined>
+  execute: (data: UpdateUserAttribute) => Promise<User>
 }

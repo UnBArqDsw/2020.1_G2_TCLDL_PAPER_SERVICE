@@ -1,7 +1,7 @@
 import { User } from '@domain/entities/User';
-import { CreateUser } from '@domain/interactors/CreateUser';
+import { CreateUser } from '@domain/interactors/user/CreateUser';
 import { Encrypter } from '@data/protocols/Encrypter';
-import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
+import { CreateUserRepository } from '@data/repositories/user/CreateUserRepository';
 import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { DateGenerator } from '@data/protocols/DateGenerator';
 import { Role } from '@domain/value_object/Role';
@@ -40,6 +40,7 @@ export class CreateUserAdapterDb implements CreateUser {
       password: hashedPassword,
       createdAt,
       updatedAt,
-    }, role);
+      role,
+    });
   }
 }

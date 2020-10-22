@@ -1,4 +1,4 @@
-import { findUserAttribute, FindUserRepository } from '@data/repositories/FindUserRepository';
+import { findUserAttribute, FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { User } from '@domain/entities/User';
 import FindUserAdapterDb from './FIndUserAdapterDb';
 

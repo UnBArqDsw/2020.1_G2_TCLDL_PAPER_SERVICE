@@ -1,6 +1,6 @@
 import { User } from '@domain/entities/User';
 import { Encrypter } from '@data/protocols/Encrypter';
-import { CreateUserRepository } from '@data/repositories/CreateUserRepository';
+import { CreateUserRepository } from '@data/repositories/user/CreateUserRepository';
 import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { DateGenerator } from '@data/protocols/DateGenerator';
 import { Role } from '@domain/value_object/Role';

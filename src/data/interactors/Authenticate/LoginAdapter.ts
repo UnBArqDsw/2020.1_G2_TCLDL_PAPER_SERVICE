@@ -20,11 +20,16 @@ export class LoginAdapter implements Login {
   }
 
   async execute(data: Authenticate): Promise<string> {
-    const password = await this.encrypter.encrypt(data.password);
-    const user = await this.findUserRepository.execute({ ...data, password });
+    const user = await this.findUserRepository.execute({ email: data.email });
 
     if (!user) {
       throw new Error('User not found.');
+    }
+
+    const isSamePassword = await this.encrypter.compare(data.password, user.password);
+
+    if (!isSamePassword) {
+      throw new Error('Invalid credentials.');
     }
 
     return this.jwtGenerator.generate({ id: user.id, email: user.email });

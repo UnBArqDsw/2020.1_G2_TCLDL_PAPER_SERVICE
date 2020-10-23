@@ -5,7 +5,8 @@ module.exports = {
     '!<rootDir>/src/server/**',
     '!<rootDir>/src/**/protocols/**',
     '!<rootDir>/src/**/*.spec.ts',
-    '!<rootDir>/src/**/*.test.ts'
+    '!<rootDir>/src/**/*.test.ts',
+    '!<rootDir>/src/**/stubs/*'
   ],
   setupFiles: ['./jest/env.js'],
   coverageDirectory: 'coverage',

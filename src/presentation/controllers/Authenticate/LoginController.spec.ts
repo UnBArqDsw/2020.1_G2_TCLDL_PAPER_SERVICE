@@ -14,10 +14,9 @@ describe('Login controller', () => {
   const sut: Controller = new LoginController(loginStub);
 
   describe('when call handle', () => {
-    let httpResquest: HttpRequest;
-    let httpResponse: HttpResponse;
-
     describe('and promise resolves', () => {
+      let httpResquest: HttpRequest;
+      let httpResponse: HttpResponse;
       beforeAll(async () => {
         httpResquest = {
           body: {},
@@ -31,6 +30,23 @@ describe('Login controller', () => {
 
       it('should return token in body', () => {
         expect(httpResponse.body).toEqual({ token: 'valid_token' });
+      });
+    });
+
+    describe('and login interactor throws', () => {
+      let httpResquest: HttpRequest;
+      let httpResponse: HttpResponse;
+
+      beforeAll(async () => {
+        jest.spyOn(loginStub, 'execute').mockRejectedValueOnce(new Error());
+        httpResquest = {
+          body: {},
+        };
+        httpResponse = await sut.handle(httpResquest);
+      });
+
+      it('should returns 500', () => {
+        expect(httpResponse.statusCode).toBe(500);
       });
     });
   });

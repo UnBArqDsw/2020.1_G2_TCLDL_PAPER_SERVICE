@@ -1,9 +1,17 @@
 import { Login } from '@domain/interactors/Authentication/Login';
 import { Authenticate } from '@domain/entities/Authenticate';
+import { JwtGenerator } from '@data/protocols/JwtGenerator';
 import { LoginAdapter } from './LoginAdapter';
 
+class JwtGeneratorStub implements JwtGenerator {
+  async generate(_data: any): Promise<string> {
+    return 'valid_token';
+  }
+}
+
 describe('Login Adapter', () => {
-  const sut: Login = new LoginAdapter();
+  const jwtGeneratorStub = new JwtGeneratorStub();
+  const sut: Login = new LoginAdapter(jwtGeneratorStub);
   describe('When call execute', () => {
     describe('and promise resolves', () => {
       let result: string;

@@ -5,7 +5,7 @@ import { FindUserRepository } from '@data/repositories/FindUserRepository';
 import { LoginAdapter } from './LoginAdapter';
 
 class JwtGeneratorStub implements JwtGenerator {
-  async generate(_data: any): Promise<string> {
+  generate(_data: any): string {
     return 'valid_token';
   }
 }
@@ -85,7 +85,9 @@ describe('Login Adapter', () => {
     describe('and jwt generator throws', () => {
       let result: Promise<string>;
       beforeAll(() => {
-        jest.spyOn(jwtGeneratorStub, 'generate').mockRejectedValue(new Error());
+        jest.spyOn(jwtGeneratorStub, 'generate').mockImplementationOnce(() => {
+          throw new Error();
+        });
 
         result = sut.execute(authObject);
       });

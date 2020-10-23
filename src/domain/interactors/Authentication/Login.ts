@@ -1,5 +1,5 @@
-import { Authenticate } from "@domain/entities/Authenticate";
+import { Authenticate } from '@domain/entities/Authenticate';
 
 export interface Login {
-    execute: (data: Authenticate) => Promise<string>  
+    execute: (data: Authenticate) => Promise<string>
 }

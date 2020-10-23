@@ -2,6 +2,7 @@ import { Login } from '@domain/interactors/Authentication/Login';
 import { JwtGenerator } from '@data/protocols/JwtGenerator';
 import { User } from '@domain/entities/User';
 import { FindUserRepository } from '@data/repositories/FindUserRepository';
+import { Encrypter } from '@data/protocols/Encrypter';
 import { LoginAdapter } from './LoginAdapter';
 
 class JwtGeneratorStub implements JwtGenerator {
@@ -24,10 +25,17 @@ class FindUserRepositoryStub implements FindUserRepository {
   }
 }
 
+class EncrypterStub implements Encrypter {
+  async encrypt(_data: string): Promise<string> {
+    return 'encrypted_string';
+  }
+}
+
 describe('Login Adapter', () => {
   const jwtGeneratorStub = new JwtGeneratorStub();
   const findUserRepositoryStub = new FindUserRepositoryStub();
-  const sut: Login = new LoginAdapter(jwtGeneratorStub, findUserRepositoryStub);
+  const encrypterStub = new EncrypterStub();
+  const sut: Login = new LoginAdapter(jwtGeneratorStub, findUserRepositoryStub, encrypterStub);
   const authObject = {
     email: 'valid_email',
     password: 'valid_password',
@@ -48,7 +56,7 @@ describe('Login Adapter', () => {
       });
 
       it('should call find user repository with correct values', () => {
-        expect(findUserRepositoryStub.execute).toHaveBeenCalledWith(authObject);
+        expect(findUserRepositoryStub.execute).toHaveBeenCalledWith({ ...authObject, password: 'encrypted_string' });
       });
 
       it('should call jwt generator with correct values', () => {
@@ -88,6 +96,19 @@ describe('Login Adapter', () => {
         jest.spyOn(jwtGeneratorStub, 'generate').mockImplementationOnce(() => {
           throw new Error();
         });
+
+        result = sut.execute(authObject);
+      });
+
+      it('should throws', () => {
+        expect(result).rejects.toThrow();
+      });
+    });
+
+    describe('and encrypter throws', () => {
+      let result: Promise<string>;
+      beforeAll(() => {
+        jest.spyOn(encrypterStub, 'encrypt').mockRejectedValueOnce(new Error());
 
         result = sut.execute(authObject);
       });

@@ -1,5 +1,5 @@
 import { User } from '@domain/entities/User';
-import { CreateUser } from '@domain/interactors/CreateUser';
+import { CreateUser } from '@domain/interactors/user/CreateUser';
 import { ServerError } from '@presentation/errors/ServerError';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { SignUpController } from './SignUpController';
@@ -39,7 +39,10 @@ describe('SignUpController', () => {
       });
 
       it('should return user info', () => {
-        expect(httpResponse.body).toEqual({ id: 'valid_id', ...httpRequest.body });
+        expect(httpResponse.body).toEqual({
+          id: 'valid_id',
+          ...httpRequest.body,
+        });
       });
 
       it('should call createUser with correct params', () => {

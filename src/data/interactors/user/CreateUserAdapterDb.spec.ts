@@ -4,15 +4,15 @@ import { CreateUserRepository } from '@data/repositories/user/CreateUserReposito
 import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { DateGenerator } from '@data/protocols/DateGenerator';
 import { Role } from '@domain/value_object/Role';
+import { FindRoleRepository } from '@data/repositories/role/FindRoleRepository';
 import { CreateUserAdapterDb } from './CreateUserAdapterDb';
 
-class RoleStub implements Role {
-  readonly id: string
-
-  readonly type: 'Admin' | 'SubAdmin' | 'Collab'
-
-  constructor(data: Role) {
-    Object.assign(this, data);
+class FindRoleRepositoryStub implements FindRoleRepository {
+  async execute(_data: Partial<Omit<Role, 'users'>>): Promise<Role> {
+    return {
+      id: 1,
+      type: 'collab',
+    };
   }
 }
 class CreateUserRepositoryStub implements CreateUserRepository {
@@ -43,9 +43,10 @@ describe('Create User Adapter', () => {
   const encrypterStub = new EncrypterStub();
   const uuidGeneratorStub = new UuidGeneratorStub();
   const dateGeneratorStub = new DateGeneratorStub();
-  const roleStub = new RoleStub({ id: 'valid_id', type: 'Collab' });
+  const findRoleRepositoryStub = new FindRoleRepositoryStub();
   const sut = new CreateUserAdapterDb(
-    createUserRepositoryStub, encrypterStub, uuidGeneratorStub, dateGeneratorStub, roleStub,
+    createUserRepositoryStub, encrypterStub, uuidGeneratorStub,
+    dateGeneratorStub, findRoleRepositoryStub,
   );
 
   describe('when calls execute', () => {
@@ -73,6 +74,10 @@ describe('Create User Adapter', () => {
           password: 'hashed_password',
           createdAt: 'valid_date',
           updatedAt: 'valid_date',
+          role: {
+            id: 1,
+            type: 'collab',
+          },
         });
       });
 
@@ -82,6 +87,24 @@ describe('Create User Adapter', () => {
 
       it('should call date generator with correct values', () => {
         expect(dateGeneratorStub.generate).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('and FindRoleRepository throws', () => {
+      let userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>;
+
+      beforeAll(() => {
+        jest.spyOn(findRoleRepositoryStub, 'execute').mockRejectedValueOnce(new Error());
+        userData = {
+          name: 'valid_name',
+          lastName: 'valid_lastName',
+          email: 'valid_email',
+          password: 'valid_password',
+        };
+      });
+
+      it('should throw an error', async () => {
+        await expect(sut.execute(userData)).rejects.toThrow();
       });
     });
 

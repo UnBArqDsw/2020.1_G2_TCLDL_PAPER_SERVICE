@@ -1,5 +1,5 @@
 import { User } from '@domain/entities/User';
-import { FindUser } from '@domain/interactors/FindUser';
+import { FindUser } from '@domain/interactors/user/FindUser';
 import { BadRequestError } from '@presentation/errors/BadRequestError';
 import { ValidationRequestError } from '@presentation/errors/ValidationRequestError';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';

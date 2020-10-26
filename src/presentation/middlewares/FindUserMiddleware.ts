@@ -1,4 +1,4 @@
-import { FindUser } from '@domain/interactors/FindUser';
+import { FindUser } from '@domain/interactors/user/FindUser';
 import { notFound, successRequest } from '@presentation/helpers/HttpHelper';
 import { HttpRequest } from '@presentation/protocols/Http';
 import { Middleware } from '@presentation/protocols/Middleware';

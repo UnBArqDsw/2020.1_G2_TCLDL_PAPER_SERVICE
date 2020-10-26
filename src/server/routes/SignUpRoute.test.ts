@@ -1,18 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import app from '@server/config/app';
-import { typeormConfig } from '@server/ormconfig';
 import supertest from 'supertest';
 import { Connection, createConnection } from 'typeorm';
+import typeormConfig from '../ormconfig';
 
 describe('SignUpRoute', () => {
   let connection: Connection;
   beforeAll(async () => {
     connection = await createConnection(typeormConfig);
-    await connection.synchronize();
+    await connection.dropDatabase();
+    await connection.runMigrations();
   });
 
   afterAll(async () => {
-    await connection.dropDatabase();
     await connection.close();
   });
 

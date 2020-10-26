@@ -1,5 +1,5 @@
 import { FindUserRepository } from '@data/repositories/user/FindUserRepository';
-import { FindUser } from '@domain/interactors/FindUser';
+import { FindUser } from '@domain/interactors/user/FindUser';
 
 export default class FindUserAdapterDb implements FindUser {
   private readonly findUserRepository: FindUserRepository

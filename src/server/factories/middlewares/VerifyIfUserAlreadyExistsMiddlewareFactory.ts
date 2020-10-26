@@ -1,6 +1,8 @@
 import { ExpressMiddlewareAdapter } from '@server/adapters/ExpressMiddlewareAdapter';
-import { VerifyIfUserAlreadyExistsMiddleware } from '@presentation/middlewares/VerifyIfUserAlreadyExistsMiddleware';
-import { FindUserDbFactory } from '../interactors/FindUserDbFactory';
+import {
+  VerifyIfUserAlreadyExistsMiddleware,
+} from '@presentation/middlewares/VerifyIfUserAlreadyExistsMiddleware';
+import { FindUserDbFactory } from '../interactors/user/FindUserDbFactory';
 
 export class VerifyIfUserAlreadyExistsMiddlewareFactory {
   create() {

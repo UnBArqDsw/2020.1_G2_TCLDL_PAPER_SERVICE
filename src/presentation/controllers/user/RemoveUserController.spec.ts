@@ -1,4 +1,4 @@
-import { RemoveUser } from '@domain/interactors/RemoveUser';
+import { RemoveUser } from '@domain/interactors/user/RemoveUser';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { RemoveUserController } from './RemoveUserController';
 

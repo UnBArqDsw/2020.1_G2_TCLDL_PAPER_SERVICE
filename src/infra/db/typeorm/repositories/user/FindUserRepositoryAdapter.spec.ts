@@ -1,4 +1,4 @@
-import { FindUserRepository } from '@data/repositories/FindUserRepository';
+import { FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { User } from '@domain/entities/User';
 import * as typeorm from 'typeorm';
 import { FindUserRepositoryAdapter } from './FindUserRepositoryAdapter';
@@ -17,7 +17,7 @@ jest.mock('typeorm', () => ({
   }),
 }));
 
-jest.mock('../entities/UserAdapter', () => ({
+jest.mock('../../entities/UserAdapter', () => ({
   UserAdapter: jest.fn().mockImplementation((data) => data),
 }));
 

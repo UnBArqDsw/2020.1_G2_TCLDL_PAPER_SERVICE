@@ -7,7 +7,7 @@ jest.mock('typeorm', () => ({
   }),
 }));
 
-jest.mock('../entities/UserAdapter', () => ({
+jest.mock('../../entities/UserAdapter', () => ({
   UserAdapter: jest.fn().mockImplementation((data) => data),
 }));
 

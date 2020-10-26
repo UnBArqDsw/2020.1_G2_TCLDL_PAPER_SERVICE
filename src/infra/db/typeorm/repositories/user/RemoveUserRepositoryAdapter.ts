@@ -1,6 +1,6 @@
-import { RemoveUserRepository } from '@data/repositories/RemoveUserRepository';
+import { RemoveUserRepository } from '@data/repositories/user/RemoveUserRepository';
 import { getRepository } from 'typeorm';
-import { UserAdapter } from '../entities/UserAdapter';
+import { UserAdapter } from '../../entities/UserAdapter';
 
 export class RemoveUserRepositoryAdapter implements RemoveUserRepository {
   async execute(id: string): Promise<void> {

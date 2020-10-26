@@ -1,7 +1,7 @@
 version: "3.6"
 
 services:
-  paper-service:
+  paper-service-test:
     image: paper-service:dev
     tty: true
     container_name: paper-service-test
@@ -22,7 +22,7 @@ services:
     networks:
       - tcdl-paper-service-test
 
-  paper-service-db:
+  paper-service-db-test:
     container_name: paper-service-db-test
     image: postgres:12-alpine
     environment:

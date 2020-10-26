@@ -1,5 +1,5 @@
 import { RemoveUserRepository } from '@data/repositories/user/RemoveUserRepository';
-import { RemoveUser } from '@domain/interactors/RemoveUser';
+import { RemoveUser } from '@domain/interactors/user/RemoveUser';
 import { RemoveUserAdapterDb } from './RemoveUserAdapterDb';
 
 class RemoveUserRepositoryStub implements RemoveUserRepository {

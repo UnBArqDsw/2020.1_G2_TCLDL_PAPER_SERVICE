@@ -1,8 +1,5 @@
 name: paper-service-master
-on: 
-  pull_request:
-    branches:
-      - 'master'
+on:
   push:
     branches:
       - 'master'

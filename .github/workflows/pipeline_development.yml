@@ -1,6 +1,6 @@
 name: paper-service-development
 on: 
-  pull_request:
+  push:
     branches:
       - 'development'
 jobs:

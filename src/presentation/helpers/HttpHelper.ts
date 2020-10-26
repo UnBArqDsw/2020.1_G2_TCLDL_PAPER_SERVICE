@@ -1,6 +1,7 @@
 import { BadRequestError } from '@presentation/errors/BadRequestError';
 import { NotFoundRequestError } from '@presentation/errors/NotFoundRequestError';
 import { ServerError } from '@presentation/errors/ServerError';
+import { UnauthorizedError } from '@presentation/errors/UnauthorizedError';
 import { ValidationRequestError } from '@presentation/errors/ValidationRequestError';
 import { HttpResponse } from '@presentation/protocols/Http';
 
@@ -17,6 +18,15 @@ export const successCreate = (data: any): HttpResponse => ({
 export const successRemove = (): HttpResponse => ({
   statusCode: 204,
 });
+
+export const unhatourizedRequest = (message: string): HttpResponse => {
+  const unauthorizedError = new UnauthorizedError(message);
+
+  return {
+    statusCode: unauthorizedError.statusCode,
+    body: unauthorizedError.message,
+  };
+};
 
 export const badRequest = (message: string): HttpResponse => {
   const badRequestError = new BadRequestError(message);

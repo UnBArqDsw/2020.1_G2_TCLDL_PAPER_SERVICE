@@ -3,6 +3,7 @@ import { EncrypterAdapter } from './EncrypterAdapter';
 
 jest.mock('bcrypt', () => ({
   hash: async () => 'encrypted_string',
+  compare: async () => true,
 }));
 
 describe('Bcrypt adapter', () => {
@@ -47,6 +48,32 @@ describe('Bcrypt adapter', () => {
 
       it('should throw an error', async () => {
         await expect(result).rejects.toThrow();
+      });
+    });
+  });
+
+  describe('when calls compare', () => {
+    describe('and promise resolves', () => {
+      let result: boolean;
+
+      beforeAll(async () => {
+        result = await sut.compare('encrypted', 'not_encrypted');
+      });
+
+      it('should return true', () => {
+        expect(result).toBe(true);
+      });
+    });
+
+    describe('and promise rejects', () => {
+      let result: Promise<boolean>;
+
+      beforeAll(() => {
+        result = sut.compare('encrypted', 'not_encrypted');
+      });
+
+      it('should return true', () => {
+        expect(result).rejects.toThrow();
       });
     });
   });

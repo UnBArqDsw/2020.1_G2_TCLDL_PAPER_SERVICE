@@ -29,6 +29,10 @@ class EncrypterStub implements Encrypter {
   async encrypt(_data: string): Promise<string> {
     return 'encrypted_string';
   }
+
+  async compare(_stingEncrypted: string, _stringNotEncrypted: string): Promise<boolean> {
+    return true;
+  }
 }
 
 describe('Login Adapter', () => {
@@ -56,7 +60,7 @@ describe('Login Adapter', () => {
       });
 
       it('should call find user repository with correct values', () => {
-        expect(findUserRepositoryStub.execute).toHaveBeenCalledWith({ ...authObject, password: 'encrypted_string' });
+        expect(findUserRepositoryStub.execute).toHaveBeenCalledWith({ email: authObject.email });
       });
 
       it('should call jwt generator with correct values', () => {
@@ -73,7 +77,20 @@ describe('Login Adapter', () => {
       });
 
       it('should throws', () => {
-        expect(result).rejects.toThrow();
+        expect(result).rejects.toThrowError('User not found.');
+      });
+    });
+
+    describe('and password is invalid', () => {
+      let result: Promise<string>;
+      beforeAll(() => {
+        jest.spyOn(encrypterStub, 'compare').mockResolvedValueOnce(false);
+
+        result = sut.execute(authObject);
+      });
+
+      it('should throws', () => {
+        expect(result).rejects.toThrowError('Invalid credentials.');
       });
     });
 

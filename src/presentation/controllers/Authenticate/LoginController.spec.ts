@@ -33,7 +33,7 @@ describe('Login controller', () => {
       });
     });
 
-    describe('and login interactor throws', () => {
+    describe('and login interactor throws with a unknow error', () => {
       let httpResquest: HttpRequest;
       let httpResponse: HttpResponse;
 
@@ -47,6 +47,40 @@ describe('Login controller', () => {
 
       it('should returns 500', () => {
         expect(httpResponse.statusCode).toBe(500);
+      });
+    });
+
+    describe('and login interactor throws with a user not found', () => {
+      let httpResquest: HttpRequest;
+      let httpResponse: HttpResponse;
+
+      beforeAll(async () => {
+        jest.spyOn(loginStub, 'execute').mockRejectedValueOnce(new Error('User not found.'));
+        httpResquest = {
+          body: {},
+        };
+        httpResponse = await sut.handle(httpResquest);
+      });
+
+      it('should returns 401', () => {
+        expect(httpResponse.statusCode).toBe(401);
+      });
+    });
+
+    describe('and login interactor throws with a invalid credential', () => {
+      let httpResquest: HttpRequest;
+      let httpResponse: HttpResponse;
+
+      beforeAll(async () => {
+        jest.spyOn(loginStub, 'execute').mockRejectedValueOnce(new Error('Invalid credentials.'));
+        httpResquest = {
+          body: {},
+        };
+        httpResponse = await sut.handle(httpResquest);
+      });
+
+      it('should returns 401', () => {
+        expect(httpResponse.statusCode).toBe(401);
       });
     });
   });

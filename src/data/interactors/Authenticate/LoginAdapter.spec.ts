@@ -1,13 +1,20 @@
 import { Login } from '@domain/interactors/Authentication/Login';
-import { JwtGenerator } from '@data/protocols/JwtGenerator';
+import { Jwt } from '@data/protocols/Jwt';
 import { User } from '@domain/entities/User';
 import { FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { Encrypter } from '@data/protocols/Encrypter';
 import { LoginAdapter } from './LoginAdapter';
 
-class JwtGeneratorStub implements JwtGenerator {
+class JwtGeneratorStub implements Jwt {
   generate(_data: any): string {
     return 'valid_token';
+  }
+
+  verify(_data: string): any {
+    return {
+      id: 'valid_id',
+      email: 'valid_email',
+    };
   }
 }
 

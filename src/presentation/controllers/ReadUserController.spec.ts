@@ -1,11 +1,11 @@
 import { User } from '@domain/entities/User';
 import { UpdateUser } from '@domain/interactors/UpdateUser';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
-import { UpdateUserController } from './UpdateUserController';
 import { UpdateUserAttribute } from '@data/repositories/UpdateUserRepository';
+import { UpdateUserController } from './UpdateUserController';
 
 class UpdateUserStub implements UpdateUser {
-  async execute(data: UpdateUserAttribute): Promise<User> {
+  async execute(_data: UpdateUserAttribute): Promise<User | undefined> {
     return {
       id: 'valid_id',
       name: 'valid_name',
@@ -19,8 +19,8 @@ class UpdateUserStub implements UpdateUser {
 }
 
 describe('Update user controller', () => {
-  const findUserStub = new UpdateUserStub();
-  const sut = new UpdateUserController(findUserStub);
+  const updateUserStub = new UpdateUserStub();
+  const sut = new UpdateUserController(updateUserStub);
 
   describe('and calls handle', () => {
     describe('and promise resolves', () => {
@@ -32,7 +32,7 @@ describe('Update user controller', () => {
       let httpResponse: HttpResponse;
 
       beforeAll(async () => {
-        jest.spyOn(findUserStub, 'execute');
+        jest.spyOn(updateUserStub, 'execute');
         httpResponse = await sut.handle(httpRequest);
       });
 
@@ -41,12 +41,12 @@ describe('Update user controller', () => {
       });
 
       test('should call Update user with correct params', () => {
-        expect(findUserStub.execute).toHaveBeenCalledWith('valid_id', 'id');
+        expect(updateUserStub.execute).toHaveBeenCalledWith('valid_id', 'id');
       });
 
       describe('and user is not found', () => {
         beforeAll(async () => {
-          jest.spyOn(findUserStub, 'execute').mockResolvedValueOnce(undefined);
+          jest.spyOn(updateUserStub, 'execute').mockResolvedValueOnce(undefined);
           httpResponse = await sut.handle(httpRequest);
         });
 

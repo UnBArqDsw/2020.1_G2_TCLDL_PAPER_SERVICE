@@ -1,5 +1,5 @@
 import { User } from '@domain/entities/User';
-import { FindUser } from '@domain/interactors/FindUser';
+import { FindUser } from '@domain/interactors/user/FindUser';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { FindUserMiddleware } from './FindUserMiddleware';
 

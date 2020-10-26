@@ -2,11 +2,11 @@ import { User } from '@domain/entities/User';
 import { UpdateUser } from '@domain/interactors/UpdateUser';
 import { ServerError } from '@presentation/errors/ServerError';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
-import { UpdateUserController } from './UpdateUserController';
 import { UpdateUserAttribute } from '@data/repositories/UpdateUserRepository';
+import { UpdateUserController } from './UpdateUserController';
 
 class CreateUserStub implements UpdateUser {
-  async execute(data: UpdateUserAttribute): Promise<User> {
+  async execute(_data: UpdateUserAttribute): Promise<User> {
     return {
       id: 'valid_id',
       name: 'valid_name',
@@ -32,7 +32,7 @@ describe('UpdateUserController', () => {
           body: {
             name: 'valid_name',
             lastName: 'valid_lastName',
-            id: 'valid_id'
+            id: 'valid_id',
           },
         };
         httpResponse = await sut.handle(httpRequest);

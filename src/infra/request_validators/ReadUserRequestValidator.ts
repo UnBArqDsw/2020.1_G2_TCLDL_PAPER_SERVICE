@@ -9,13 +9,12 @@ export class ReadUserRequestValidator implements RequestValidator {
 
   constructor() {
     this.schema = joi.object({
-      id: joi.string()
+      id: joi.string(),
     });
   }
 
   async validate(data: any): Promise<RequestValidatorReturn> {
     try {
-      console.log('Test' ,data)
       await this.schema.validateAsync(data, { abortEarly: false, presence: 'required' });
       return { isValid: true, fields: '' };
     } catch (error) {

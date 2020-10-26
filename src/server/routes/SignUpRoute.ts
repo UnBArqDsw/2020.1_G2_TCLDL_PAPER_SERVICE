@@ -1,4 +1,4 @@
-import { SignUpControllerFactory } from '@server/factories/controllers/SignUpControllerFactory';
+import { SignUpControllerFactory } from '@server/factories/controllers/user/SignUpControllerFactory';
 import { SignUpValidatorMiddlewareFactory }
   from '@server/factories/middlewares/SignUpValidatorMiddlewareFactory';
 import { VerifyIfUserAlreadyExistsMiddlewareFactory }

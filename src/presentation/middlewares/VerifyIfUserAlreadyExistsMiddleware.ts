@@ -1,4 +1,4 @@
-import { FindUser } from '@domain/interactors/FindUser';
+import { FindUser } from '@domain/interactors/user/FindUser';
 import {
   badRequest, successRequest, validationError,
 } from '@presentation/helpers/HttpHelper';

@@ -1,5 +1,8 @@
 import { User } from '@domain/entities/User';
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import {
+  Entity, PrimaryColumn, Column, ManyToOne,
+} from 'typeorm';
+import { RoleAdapter } from './RoleAdapter';
 
 @Entity('users')
 export class UserAdapter implements User {
@@ -23,6 +26,9 @@ export class UserAdapter implements User {
 
   @Column('timestamp with time zone')
   updatedAt: string
+
+  @ManyToOne(() => RoleAdapter, (role) => role.users)
+  role?: RoleAdapter;
 
   constructor(data: User) {
     Object.assign(this, data);

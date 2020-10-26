@@ -5,7 +5,9 @@ module.exports = {
     '!<rootDir>/src/server/**',
     '!<rootDir>/src/**/protocols/**',
     '!<rootDir>/src/**/*.spec.ts',
-    '!<rootDir>/src/**/*.test.ts'
+    '!<rootDir>/src/**/*.test.ts',
+    '!<rootDir>/src/**/migrations/*',
+    '!<rootDir>/src/**/seeds/*',
   ],
   setupFiles: ['./jest/env.js'],
   coverageDirectory: 'coverage',

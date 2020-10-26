@@ -1,4 +1,4 @@
-import { findUserAttribute, FindUserRepository } from '@data/repositories/FindUserRepository';
+import { findUserAttribute, FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { User } from '@domain/entities/User';
 import { UpdateUserAdapterDb } from './UpdateUserAdapterDb';
 
@@ -22,11 +22,11 @@ describe('Update user adapter db', () => {
   describe('when calls execute', () => {
     describe('and promise resolves', () => {
       let result: User;
-      let data = {
+      const data = {
         name: 'Test',
         lastName: 'Test',
-        id: 'valid_id'
-      }
+        id: 'valid_id',
+      };
       beforeAll(async () => {
         result = await sut.execute(data);
       });
@@ -46,11 +46,11 @@ describe('Update user adapter db', () => {
 
     describe('and update user repository throws', () => {
       let result: Promise<User>;
-      let data = {
+      const data = {
         name: 'Test',
         lastName: 'Test',
-        id: 'valid_id'
-      }
+        id: 'valid_id',
+      };
       beforeAll(async () => {
         jest.spyOn(updateUserRepositoryStub, 'execute').mockRejectedValueOnce(new Error());
         result = sut.execute(data);

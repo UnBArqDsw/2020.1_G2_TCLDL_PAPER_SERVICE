@@ -1,7 +1,7 @@
 import { ExpressControllerAdapter } from '@server/adapters/ExpressControllerAdapter';
 import { ControllerFactory } from '@server/protocols/ControllerFactory';
 import { ReadUserController } from '@presentation/controllers/ReadUserController';
-import { FindUserDbFactory } from '../interactors/FindUserDbFactory';
+import { FindUserDbFactory } from '../interactors/user/FindUserDbFactory';
 
 export class ReadUserControllerFactory implements ControllerFactory {
   create() {

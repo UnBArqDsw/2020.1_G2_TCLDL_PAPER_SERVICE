@@ -24,24 +24,47 @@ describe('Auth middleware', () => {
       let response: HttpResponse;
       let request: HttpRequest;
 
-      beforeAll(async () => {
-        request = {
-          headers: {
-            Authorization: 'Baerer token',
-          },
-          locals: {},
-        };
-        response = await sut.handle(request);
+      describe('and authorization is lowercase', () => {
+        beforeAll(async () => {
+          request = {
+            headers: {
+              authorization: 'Baerer token',
+            },
+          };
+          response = await sut.handle(request);
+        });
+
+        it('should return 200', () => {
+          expect(response.statusCode).toBe(200);
+        });
+
+        it('should have a decoded token in locals', () => {
+          expect(request.headers?.decodedToken).toEqual({
+            id: 'valid_id',
+            email: 'valid_email',
+          });
+        });
       });
 
-      it('should return 200', () => {
-        expect(response.statusCode).toBe(200);
-      });
+      describe('and Authorization is uppercase', () => {
+        beforeAll(async () => {
+          request = {
+            headers: {
+              Authorization: 'Baerer token',
+            },
+          };
+          response = await sut.handle(request);
+        });
 
-      it('should have a decoded token in locals', () => {
-        expect(request.locals?.decodedToken).toEqual({
-          id: 'valid_id',
-          email: 'valid_email',
+        it('should return 200', () => {
+          expect(response.statusCode).toBe(200);
+        });
+
+        it('should have a decoded token in locals', () => {
+          expect(request.headers?.decodedToken).toEqual({
+            id: 'valid_id',
+            email: 'valid_email',
+          });
         });
       });
     });
@@ -51,9 +74,7 @@ describe('Auth middleware', () => {
       let request: HttpRequest;
 
       beforeAll(async () => {
-        request = {
-          locals: {},
-        };
+        request = {};
         response = await sut.handle(request);
       });
 
@@ -73,9 +94,8 @@ describe('Auth middleware', () => {
       beforeAll(async () => {
         request = {
           headers: {
-            Authorization: 'Baerer ',
+            authorization: 'Baerer ',
           },
-          locals: {},
         };
         response = await sut.handle(request);
       });
@@ -96,9 +116,8 @@ describe('Auth middleware', () => {
       beforeAll(async () => {
         request = {
           headers: {
-            Authorization: 'Baerer invalid_token',
+            authorization: 'Baerer invalid_token',
           },
-          locals: {},
         };
         jest.spyOn(jwtStub, 'verify').mockImplementationOnce(() => {
           throw new Error('Invalid token.');
@@ -122,9 +141,8 @@ describe('Auth middleware', () => {
       beforeAll(async () => {
         request = {
           headers: {
-            Authorization: 'Baerer token',
+            authorization: 'Baerer token',
           },
-          locals: {},
         };
         jest.spyOn(jwtStub, 'verify').mockImplementationOnce(() => {
           throw new Error();

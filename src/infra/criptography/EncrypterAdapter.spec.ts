@@ -69,6 +69,7 @@ describe('Bcrypt adapter', () => {
       let result: Promise<boolean>;
 
       beforeAll(() => {
+        jest.spyOn(bcrypt, 'compare').mockRejectedValueOnce(new Error());
         result = sut.compare('encrypted', 'not_encrypted');
       });
 

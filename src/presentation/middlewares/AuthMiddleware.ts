@@ -11,13 +11,13 @@ export class AuthMiddleware implements Middleware {
   }
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
-    const Authorization = request.headers?.Authorization;
+    const authorization = request.headers?.authorization || request.headers?.Authorization;
 
-    if (!Authorization) {
+    if (!authorization) {
       return unhatourizedRequest('Token was not provided.');
     }
 
-    const [, token] = Authorization.split(' ');
+    const [, token] = authorization.split(' ');
 
     if (!token) {
       return unhatourizedRequest('Token was not provided.');
@@ -25,7 +25,7 @@ export class AuthMiddleware implements Middleware {
 
     try {
       const isValidToken = this.jwtGenerator.verify(token);
-      request.locals.decodedToken = isValidToken;
+      request.headers.decodedToken = isValidToken;
       return successRequest('ok');
     } catch (error) {
       if (error.message.toLowerCase() === 'invalid token.') {

@@ -16,6 +16,8 @@ export class RequestValidatorMiddleware implements Middleware {
       return badRequest(fields);
     }
 
+    delete request.body.passwordConfirmation;
+
     return successRequest('ok');
   }
 }

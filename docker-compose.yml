@@ -4,7 +4,7 @@ services:
   paper-service:
     image: paper-service:dev
     tty: true
-    container_name: paper_service
+    container_name: paper-service
     build:
       context: .
       dockerfile: ./docker/development.Dockerfile

@@ -47,6 +47,10 @@ describe('SignUpValidatorMiddleware', () => {
       it('should call validator with correct params', () => {
         expect(validatorSpy).toHaveBeenCalledWith(httpRequest.body);
       });
+
+      it('should be passwordConfirmation deleted', () => {
+        expect(httpRequest.body).not.toHaveProperty('passwordConfirmation');
+      });
     });
 
     describe('and request validator returns false', () => {

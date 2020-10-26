@@ -15,7 +15,6 @@ export class LoginController implements Controller {
       const token = await this.login.execute(request.body);
       return successRequest({ token });
     } catch (error) {
-      console.error(error);
       return serverError();
     }
   }

@@ -1,7 +1,7 @@
 import { Login } from '@domain/interactors/Authentication/Login';
 import { Authenticate } from '@domain/entities/Authenticate';
 import { JwtGenerator } from '@data/protocols/JwtGenerator';
-import { FindUserRepository } from '@data/repositories/FindUserRepository';
+import { FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { Encrypter } from '@data/protocols/Encrypter';
 
 export class LoginAdapter implements Login {

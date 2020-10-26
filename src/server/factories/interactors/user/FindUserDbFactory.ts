@@ -1,5 +1,7 @@
-import FindUserAdapterDb from '@data/interactors/FIndUserAdapterDb';
-import { FindUserRepositoryAdapter } from '@infra/db/typeorm/repositories/FindUserRepositoryAdapter';
+import FindUserAdapterDb from '@data/interactors/user/FindUserAdapterDb';
+import {
+  FindUserRepositoryAdapter,
+} from '@infra/db/typeorm/repositories/user/FindUserRepositoryAdapter';
 
 export class FindUserDbFactory {
   create(): FindUserAdapterDb {

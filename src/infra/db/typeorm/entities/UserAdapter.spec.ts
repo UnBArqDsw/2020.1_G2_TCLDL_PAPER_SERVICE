@@ -1,5 +1,19 @@
-import * as typeorm from 'typeorm';
 import { UserAdapter } from './UserAdapter';
+
+jest.mock('./RoleAdapter', () => ({
+  id: 1,
+  type: 'test',
+}));
+
+jest.mock('typeorm', () => ({
+  Entity: jest.fn(),
+  PrimaryColumn: jest.fn(),
+  Column: jest.fn(),
+  ManyToOne: jest.fn((callback, callback2) => {
+    callback();
+    callback2({ users: [] });
+  }),
+}));
 
 describe('User adapter', () => {
   const sut = new UserAdapter({
@@ -14,12 +28,6 @@ describe('User adapter', () => {
   });
 
   describe('when user is instanciated', () => {
-    beforeAll(() => {
-      jest.spyOn(typeorm, 'Entity');
-      jest.spyOn(typeorm, 'PrimaryColumn');
-      jest.spyOn(typeorm, 'Column');
-    });
-
     it('should return a user', () => {
       expect(sut).toEqual(
         {

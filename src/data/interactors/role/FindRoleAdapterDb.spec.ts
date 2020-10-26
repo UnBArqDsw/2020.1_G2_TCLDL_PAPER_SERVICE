@@ -5,7 +5,7 @@ import { FindRoleAdapterDb } from './FindRoleAdapterDb';
 class FindRoleRepositoryStub implements FindRoleRepository {
   async execute(_data: Partial<Omit<Role, 'users'>>): Promise<Omit<Role, 'users'>> {
     return {
-      id: 'valid_id',
+      id: 1,
       type: 'collab',
     };
   }
@@ -24,7 +24,7 @@ describe('find role adapter', () => {
 
       it('should return a role', () => {
         expect(result).toEqual({
-          id: 'valid_id',
+          id: 1,
           type: 'collab',
         });
       });

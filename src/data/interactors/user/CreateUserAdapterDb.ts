@@ -4,7 +4,7 @@ import { Encrypter } from '@data/protocols/Encrypter';
 import { CreateUserRepository } from '@data/repositories/user/CreateUserRepository';
 import { UuidGenerator } from '@data/protocols/UuidGenerator';
 import { DateGenerator } from '@data/protocols/DateGenerator';
-import { Role } from '@domain/value_object/Role';
+import { FindRoleRepository } from '@data/repositories/role/FindRoleRepository';
 
 export class CreateUserAdapterDb implements CreateUser {
   private readonly createUserRepository: CreateUserRepository
@@ -15,25 +15,26 @@ export class CreateUserAdapterDb implements CreateUser {
 
   private readonly dateGenerator: DateGenerator
 
-  private readonly role: Role
+  private readonly findRoleRepository: FindRoleRepository
 
   constructor(
     createUserRepository: CreateUserRepository, encrypter: Encrypter, uuidGenerator: UuidGenerator,
-    dateGenerator: DateGenerator, role: Role,
+    dateGenerator: DateGenerator, findRoleRepository: FindRoleRepository,
   ) {
     this.createUserRepository = createUserRepository;
     this.encrypter = encrypter;
     this.uuidGenerator = uuidGenerator;
     this.dateGenerator = dateGenerator;
-    this.role = role;
+    this.findRoleRepository = findRoleRepository;
   }
 
   async execute(userData: Omit<User, 'id' | 'createdAt'| 'updatedAt'>): Promise<User> {
+    const role = await this.findRoleRepository.execute({ type: 'collab' });
     const hashedPassword = await this.encrypter.encrypt(userData.password);
     const uuid = this.uuidGenerator.generate();
     const createdAt = this.dateGenerator.generate();
     const updatedAt = createdAt;
-    const { role } = this;
+
     return this.createUserRepository.execute({
       id: uuid,
       ...userData,

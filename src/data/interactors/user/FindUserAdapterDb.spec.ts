@@ -1,6 +1,6 @@
 import { findUserAttribute, FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { User } from '@domain/entities/User';
-import FindUserAdapterDb from './FIndUserAdapterDb';
+import FindUserAdapterDb from './FindUserAdapterDb';
 
 class FindUserRepositoryStub implements FindUserRepository {
   async execute(_parameter: findUserAttribute) {

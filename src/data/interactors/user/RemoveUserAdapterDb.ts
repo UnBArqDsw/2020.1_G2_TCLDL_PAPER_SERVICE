@@ -1,5 +1,5 @@
 import { RemoveUserRepository } from '@data/repositories/user/RemoveUserRepository';
-import { RemoveUser } from '@domain/interactors/RemoveUser';
+import { RemoveUser } from '@domain/interactors/user/RemoveUser';
 
 export class RemoveUserAdapterDb implements RemoveUser {
   private readonly removeUserRepository: RemoveUserRepository

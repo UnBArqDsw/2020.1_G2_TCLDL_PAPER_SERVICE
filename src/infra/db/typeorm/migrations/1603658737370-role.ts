@@ -1,7 +1,7 @@
 import {
   MigrationInterface, QueryRunner, Table, TableIndex,
 } from 'typeorm';
-import { roleSeed } from '../seed/role.seed';
+import { roleSeed } from '../seeds/role.seed';
 
 export class role1603658737370 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

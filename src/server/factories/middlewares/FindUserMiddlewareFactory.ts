@@ -1,7 +1,7 @@
 import { ExpressMiddlewareAdapter } from '@server/adapters/ExpressMiddlewareAdapter';
 import { FindUserMiddleware } from '@presentation/middlewares/FindUserMiddleware';
 import { MiddlewareFactory } from '@server/protocols/MiddlewareFactory';
-import { FindUserDbFactory } from '../interactors/FindUserDbFactory';
+import { FindUserDbFactory } from '../interactors/user/FindUserDbFactory';
 
 export class FindUserMiddlewareFactory implements MiddlewareFactory {
   create() {

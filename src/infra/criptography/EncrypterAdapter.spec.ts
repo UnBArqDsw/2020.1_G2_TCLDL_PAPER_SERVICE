@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
-import { BcryptAdapter } from './BcryptAdapter';
+import { EncrypterAdapter } from './EncrypterAdapter';
 
 jest.mock('bcrypt', () => ({
   hash: async () => 'encrypted_string',
 }));
 
 describe('Bcrypt adapter', () => {
-  const sut = new BcryptAdapter();
+  const sut = new EncrypterAdapter();
   describe('when calls encrypt', () => {
     describe('and promise resolves', () => {
       let result: string;

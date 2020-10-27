@@ -1,8 +1,5 @@
-name: paper-service-development
-on: 
-  push:
-    branches:
-      - 'development'
+name: Docker Compose Actions Workflow
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest

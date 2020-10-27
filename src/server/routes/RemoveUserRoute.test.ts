@@ -28,15 +28,41 @@ describe('RemoveUserRoute', () => {
           passwordConfirmation: '123456',
         }).expect(201);
 
-        await request.delete(`/${process.env.SERVICE_VERSION}/users/${response.body.id}`)
-          .expect(204);
+        const { body: { token } } = await request.post(`/${process.env.SERVICE_VERSION}/login`)
+          .send({
+            email: 'test123213@test.com',
+            password: '123456',
+          }).expect(200);
+
+        await request.delete(`/${process.env.SERVICE_VERSION}/users/${response.body.id}`).set({
+          authorization: `Bearer ${token}`,
+        }).expect(204);
       });
     });
 
     describe('and user is not found', () => {
       test('should return 404', async () => {
-        await request.delete(`/${process.env.SERVICE_VERSION}/users/invalid_id`)
-          .expect(404);
+        const response = await request.post(`/${process.env.SERVICE_VERSION}/signup`).send({
+          name: 'test',
+          email: 'test123213@test.com',
+          lastName: 'test',
+          password: '123456',
+          passwordConfirmation: '123456',
+        }).expect(201);
+
+        const { body: { token } } = await request.post(`/${process.env.SERVICE_VERSION}/login`)
+          .send({
+            email: 'test123213@test.com',
+            password: '123456',
+          }).expect(200);
+
+        await request.delete(`/${process.env.SERVICE_VERSION}/users/${response.body.id}`).set({
+          authorization: `Bearer ${token}`,
+        }).expect(204);
+
+        await request.delete(`/${process.env.SERVICE_VERSION}/users/${response.body.id}`).set({
+          authorization: `Bearer ${token}`,
+        }).expect(404);
       });
     });
   });

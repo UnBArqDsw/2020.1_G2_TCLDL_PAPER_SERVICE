@@ -12,7 +12,7 @@ describe('Verify if user is same of decoded token', () => {
         beforeAll(async () => {
           request = {
             params: {
-              id: 'valid_id',
+              userId: 'valid_id',
             },
             headers: {
               decodedToken: {
@@ -35,7 +35,7 @@ describe('Verify if user is same of decoded token', () => {
         beforeAll(async () => {
           request = {
             params: {
-              id: 'invalid_id',
+              userId: 'invalid_id',
             },
             headers: {
               decodedToken: {
@@ -62,7 +62,7 @@ describe('Verify if user is same of decoded token', () => {
         beforeAll(async () => {
           request = {
             params: {
-              id: 'invalid_id',
+              userId: 'invalid_id',
             },
           };
           response = await sut.handle(request);

@@ -6,7 +6,7 @@ export class VerifyIfUserIsSameOfDecodedToken implements Middleware {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     const decodedToken = request.headers?.decodedToken;
 
-    if (request.params.id !== decodedToken?.id) {
+    if (request.params.userId !== decodedToken?.id) {
       return unhatourizedRequest('Unauthorized.');
     }
 

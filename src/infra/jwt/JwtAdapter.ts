@@ -16,7 +16,6 @@ export class JwtAdapter implements Jwt {
     }
 
     try {
-      console.log(jwt.verify);
       return jwt.verify(data, process.env.JWT_SECRET);
     } catch (error) {
       throw new Error('Invalid token.');

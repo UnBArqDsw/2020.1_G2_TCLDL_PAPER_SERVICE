@@ -3,7 +3,7 @@ import { ExpressMiddlewareAdapter } from '@server/adapters/ExpressMiddlewareAdap
 import { MiddlewareFactory } from '@server/protocols/MiddlewareFactory';
 import { RequestValidatorMiddleware } from '@presentation/middlewares/RequestValidatorMiddleware';
 
-export class SignUpValidatorMiddlewareFactory implements MiddlewareFactory {
+export class SignUpValidatorRequestMiddlewareFactory implements MiddlewareFactory {
   create() {
     const createRequestValidator = new CreateUserRequestValidator();
     const signUpValidatorMiddleware = new RequestValidatorMiddleware(createRequestValidator);

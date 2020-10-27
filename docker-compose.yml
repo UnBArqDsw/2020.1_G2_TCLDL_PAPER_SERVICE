@@ -37,15 +37,15 @@ services:
       - tcdl-paper-service
    
   # Uncomment for init pgadmin ui instance
-  paper-pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: user@domain.com
-      PGADMIN_DEFAULT_PASSWORD: SuperSecret
-    ports:
-      - 5050:80
-    networks:
-      - tcdl-paper-service
+  # paper-pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: user@domain.com
+  #     PGADMIN_DEFAULT_PASSWORD: SuperSecret
+  #   ports:
+  #     - 5050:80
+  #   networks:
+  #     - tcdl-paper-service
 
 
 volumes: 

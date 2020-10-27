@@ -30,6 +30,10 @@ class EncrypterStub implements Encrypter {
   async encrypt(_value: string): Promise<string> {
     return 'hashed_password';
   }
+
+  async compare(_stingEncrypted: string, _stringNotEncrypted: string): Promise<boolean> {
+    return true;
+  }
 }
 
 class DateGeneratorStub implements DateGenerator {

@@ -15,7 +15,6 @@ export class SignUpController implements Controller {
       const user = await this.createUser.execute(request.body);
       return successCreate(user);
     } catch (error) {
-      console.log(error);
       return serverError();
     }
   }

@@ -2,7 +2,7 @@ import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import {
   RequestValidator, RequestValidatorReturn,
 } from '@presentation/validators/RequestValidator';
-import { SignUpValidatorMiddleware } from './SignUpValidatorMiddleware';
+import { RequestValidatorMiddleware } from './RequestValidatorMiddleware';
 
 class SignUpRequestValidatorStub implements RequestValidator {
   async validate(_request: HttpRequest): Promise<RequestValidatorReturn> {
@@ -15,7 +15,7 @@ class SignUpRequestValidatorStub implements RequestValidator {
 
 describe('SignUpValidatorMiddleware', () => {
   const validatorStub = new SignUpRequestValidatorStub();
-  const sut = new SignUpValidatorMiddleware(validatorStub);
+  const sut = new RequestValidatorMiddleware(validatorStub);
   describe('when call handle', () => {
     describe('and request validator returns true', () => {
       let httpRequest: HttpRequest;

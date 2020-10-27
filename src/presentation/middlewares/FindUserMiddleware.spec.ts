@@ -54,5 +54,23 @@ describe('Find user middleware', () => {
         });
       });
     });
+
+    describe('and promises rejects', () => {
+      const httpRequest: HttpRequest = {
+        params: {
+          userId: 'valid_id',
+        },
+      };
+      let httpResponse: HttpResponse;
+
+      beforeAll(async () => {
+        jest.spyOn(findUserStub, 'execute').mockRejectedValueOnce(new Error());
+        httpResponse = await sut.handle(httpRequest);
+      });
+
+      it('should throws', () => {
+        expect(httpResponse.statusCode).toBe(500);
+      });
+    });
   });
 });

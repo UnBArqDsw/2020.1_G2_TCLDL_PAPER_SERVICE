@@ -1,3 +1,4 @@
 exclude_patterns:
   - "src/**/*.spec.ts"
   - "src/**/*.test.ts"
+  - "src/**/migrations/*"

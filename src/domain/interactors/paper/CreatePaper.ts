@@ -1,5 +1,5 @@
-import { Paper } from '@domain/entities/Paper';
+import { Paper } from '@domain/entities/PaperInformation';
 
-export interface CreateUser {
-  execute: (data: Paper) => Promise<string>
+export interface CreatePaper {
+  execute: (data: Paper) => Promise<Paper>
 }

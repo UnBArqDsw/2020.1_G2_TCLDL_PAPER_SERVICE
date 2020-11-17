@@ -1,9 +1,9 @@
-import { findUserAttribute, FindUserRepository } from '@data/repositories/user/FindUserRepository';
+import { FindUserRepository } from '@data/repositories/user/FindUserRepository';
 import { User } from '@domain/entities/User';
 import FindUserAdapterDb from './FindUserAdapterDb';
 
 class FindUserRepositoryStub implements FindUserRepository {
-  async execute(_parameter: findUserAttribute) {
+  async execute(_parameter: Partial<Omit<User, 'createdAt' | 'updatedAt'>>) {
     return {
       id: 'valid_id',
       name: 'valid_name',

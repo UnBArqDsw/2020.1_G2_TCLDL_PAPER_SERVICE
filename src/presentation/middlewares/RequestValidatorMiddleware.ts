@@ -3,7 +3,7 @@ import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { Middleware } from '@presentation/protocols/Middleware';
 import { RequestValidator } from '@presentation/validators/RequestValidator';
 
-export class SignUpValidatorMiddleware implements Middleware {
+export class RequestValidatorMiddleware implements Middleware {
   private readonly requestValidator: RequestValidator
 
   constructor(requestValidator: RequestValidator) {

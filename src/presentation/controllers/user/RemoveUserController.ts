@@ -1,5 +1,5 @@
 import { RemoveUser } from '@domain/interactors/user/RemoveUser';
-import { serverError, successRemove } from '@presentation/helpers/HttpHelper';
+import { ResponseHelper } from '@presentation/helpers/ResponseHelper';
 import { Controller } from '@presentation/protocols/Controller';
 import { HttpRequest } from '@presentation/protocols/Http';
 
@@ -14,9 +14,9 @@ export class RemoveUserController implements Controller {
     const { userId } = request.params;
     try {
       await this.removeUser.execute(userId);
-      return successRemove();
+      return ResponseHelper.successRemove();
     } catch (error) {
-      return serverError();
+      return ResponseHelper.serverError();
     }
   }
 }

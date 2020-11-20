@@ -6,6 +6,15 @@ import { CreateUserRepositoryAdapter } from './CreateUserRepositoryAdapter';
 jest.mock('typeorm', () => ({
   getRepository: jest.fn().mockReturnValue({
     save: jest.fn().mockImplementation((data) => data),
+    findOneOrFail: jest.fn().mockResolvedValue({
+      id: 'valid_id',
+      name: 'valid_name',
+      lastName: 'valid_lastName',
+      email: 'valid_email',
+      password: 'valid_password',
+      createdAt: 'valid_date',
+      updatedAt: 'valid_date',
+    }),
   }),
 }));
 
@@ -89,8 +98,32 @@ describe('Create user repository adapter', () => {
         result = sut.execute(user);
       });
 
-      it('should throws', () => {
-        expect(result).rejects.toThrow();
+      it('should throws', async () => {
+        await expect(result).rejects.toThrow();
+      });
+    });
+
+    describe('and findOneOrFail rejects', () => {
+      let result: Promise<User>;
+      const user: User = {
+        id: 'valid_id',
+        name: 'valid_name',
+        lastName: 'valid_lastName',
+        email: 'valid_email',
+        password: 'valid_password',
+        createdAt: 'valid_date',
+        updatedAt: 'valid_date',
+      };
+
+      beforeAll(() => {
+        jest.spyOn(typeorm.getRepository('test'), 'findOneOrFail')
+          .mockRejectedValueOnce(new Error());
+
+        result = sut.execute(user);
+      });
+
+      it('should throws', async () => {
+        await expect(result).rejects.toThrow();
       });
     });
   });

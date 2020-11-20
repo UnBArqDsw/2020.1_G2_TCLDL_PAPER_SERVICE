@@ -1,7 +1,5 @@
 import { FindUser } from '@domain/interactors/user/FindUser';
-import {
-  badRequest, successRequest, validationError,
-} from '@presentation/helpers/HttpHelper';
+import { ResponseHelper } from '@presentation/helpers/ResponseHelper';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { Middleware } from '@presentation/protocols/Middleware';
 
@@ -16,15 +14,15 @@ export class VerifyIfUserAlreadyExistsMiddleware implements Middleware {
     const userEmail = request.body?.email;
 
     if (!userEmail) {
-      return badRequest('user email');
+      return ResponseHelper.badRequest('user email');
     }
 
-    const user = await this.findUser.execute(userEmail, 'email');
+    const user = await this.findUser.execute({ email: userEmail });
 
     if (user) {
-      return validationError('user already exists.');
+      return ResponseHelper.validationError('user already exists.');
     }
 
-    return successRequest('ok');
+    return ResponseHelper.successRequest('ok');
   }
 }

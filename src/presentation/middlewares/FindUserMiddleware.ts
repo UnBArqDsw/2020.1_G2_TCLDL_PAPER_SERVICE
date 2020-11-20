@@ -1,5 +1,5 @@
 import { FindUser } from '@domain/interactors/user/FindUser';
-import { notFound, serverError, successRequest } from '@presentation/helpers/HttpHelper';
+import { ResponseHelper } from '@presentation/helpers/ResponseHelper';
 import { HttpRequest } from '@presentation/protocols/Http';
 import { Middleware } from '@presentation/protocols/Middleware';
 
@@ -14,15 +14,15 @@ export class FindUserMiddleware implements Middleware {
     try {
       const { userId } = request.params;
 
-      const user = await this.findUser.execute(userId, 'id');
+      const user = await this.findUser.execute({ id: userId });
 
       if (!user) {
-        return notFound('user');
+        return ResponseHelper.notFound('user');
       }
 
-      return successRequest('ok');
+      return ResponseHelper.successRequest('ok');
     } catch (error) {
-      return serverError();
+      return ResponseHelper.serverError();
     }
   }
 }

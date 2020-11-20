@@ -6,7 +6,7 @@ import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { VerifyIfUserAlreadyExistsMiddleware } from './VerifyIfUserAlreadyExistsMiddleware';
 
 class FindUserStub implements FindUser {
-  async execute(_parameter: string): Promise<User | undefined> {
+  async execute(_parameter: Partial<User>): Promise<User | undefined> {
     return undefined;
   }
 }

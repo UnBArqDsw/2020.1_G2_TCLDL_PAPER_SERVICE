@@ -1,4 +1,4 @@
-import { successRequest, unhatourizedRequest } from '@presentation/helpers/HttpHelper';
+import { ResponseHelper } from '@presentation/helpers/ResponseHelper';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { Middleware } from '@presentation/protocols/Middleware';
 
@@ -7,9 +7,9 @@ export class VerifyIfUserIsSameOfDecodedToken implements Middleware {
     const decodedToken = request.headers?.decodedToken;
 
     if (request.params.userId !== decodedToken?.id) {
-      return unhatourizedRequest('Unauthorized.');
+      return ResponseHelper.unhatourizedRequest('Unauthorized.');
     }
 
-    return successRequest('ok');
+    return ResponseHelper.successRequest('ok');
   }
 }

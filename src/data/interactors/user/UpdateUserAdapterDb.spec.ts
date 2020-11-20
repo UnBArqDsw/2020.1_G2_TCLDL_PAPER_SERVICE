@@ -1,3 +1,4 @@
+import { DateGenerator } from '@data/protocols/DateGenerator';
 import { Encrypter } from '@data/protocols/Encrypter';
 import { UpdateUserRepository } from '@data/repositories/user/UpdateUserRepository';
 import { User } from '@domain/entities/User';
@@ -5,7 +6,7 @@ import { UpdateUserAttribute } from '@domain/interactors/user/UpdateUser';
 import { UpdateUserAdapterDb } from './UpdateUserAdapterDb';
 
 class UpdateUserRepositoryStub implements UpdateUserRepository {
-  async execute(_data: UpdateUserAttribute): Promise<User | undefined> {
+  async execute(data: UpdateUserAttribute): Promise<User | undefined> {
     return {
       id: 'valid_id',
       name: 'valid_name',
@@ -14,6 +15,7 @@ class UpdateUserRepositoryStub implements UpdateUserRepository {
       password: 'valid_password',
       createdAt: 'valid_createdAt',
       updatedAt: 'valid_updatedAt',
+      ...data,
     };
   }
 }
@@ -28,19 +30,26 @@ class EncrypterStub implements Encrypter {
   }
 }
 
+class DateGeneratorStub implements DateGenerator {
+  generate(): string {
+    return 'valid_updatedAt';
+  }
+}
+
 describe('Update user adapter db', () => {
   const updateUserRepositoryStub = new UpdateUserRepositoryStub();
   const encrypterStub = new EncrypterStub();
-  const sut = new UpdateUserAdapterDb(updateUserRepositoryStub, encrypterStub);
+  const dateGeneratorStub = new DateGeneratorStub();
+  const sut = new UpdateUserAdapterDb(updateUserRepositoryStub, encrypterStub, dateGeneratorStub);
 
   describe('when calls execute', () => {
     describe('and promise resolves', () => {
       let result: User | undefined;
       const data: UpdateUserAttribute = {
-        name: 'valid_name',
-        lastName: 'valid_lastname',
-        email: 'valid_email',
-        password: 'valid_password',
+        name: 'edited_name',
+        lastName: 'edited_lastName',
+        email: 'edited_email',
+        password: 'edited_password',
       };
 
       beforeAll(async () => {
@@ -54,10 +63,10 @@ describe('Update user adapter db', () => {
       it('should return user', () => {
         expect(result).toEqual({
           id: 'valid_id',
-          name: 'valid_name',
-          lastName: 'valid_lastName',
-          email: 'valid_email',
-          password: 'valid_password',
+          name: 'edited_name',
+          lastName: 'edited_lastName',
+          email: 'edited_email',
+          password: 'encrypted_string',
           createdAt: 'valid_createdAt',
           updatedAt: 'valid_updatedAt',
         });
@@ -68,7 +77,7 @@ describe('Update user adapter db', () => {
       let result: User | undefined;
       const data: UpdateUserAttribute = {
         name: 'valid_name',
-        lastName: 'valid_lastname',
+        lastName: 'valid_lastName',
         email: 'valid_email',
       };
 

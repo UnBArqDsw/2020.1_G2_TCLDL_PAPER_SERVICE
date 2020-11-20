@@ -1,5 +1,5 @@
 import { ControllerFactory } from '@server/protocols/ControllerFactory';
-import { LoginController } from '@presentation/controllers/Authenticate/LoginController';
+import { LoginController } from '@presentation/controllers/authenticate/LoginController';
 import { ExpressControllerAdapter } from '@server/adapters/ExpressControllerAdapter';
 import { LoginFactory } from '../../interactors/Authenticate/LoginFactory';
 

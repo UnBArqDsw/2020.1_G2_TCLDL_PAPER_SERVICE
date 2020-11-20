@@ -17,6 +17,6 @@ export class UpdateUserRepositoryAdapter implements UpdateUserRepository {
       await userRepository.save(user);
     }
 
-    return user;
+    return userRepository.findOne(userId);
   }
 }

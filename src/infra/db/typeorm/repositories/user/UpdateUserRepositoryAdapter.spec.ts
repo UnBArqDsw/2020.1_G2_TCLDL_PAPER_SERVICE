@@ -6,7 +6,7 @@ jest.mock('typeorm', () => ({
   getRepository: jest.fn().mockReturnValue({
     findOne: jest.fn().mockImplementation(() => ({
       id: 'valid_id',
-      name: 'valid_name',
+      name: 'edited_name',
       lastName: 'valid_lastName',
       email: 'valid_email',
       password: 'valid_password',
@@ -48,7 +48,10 @@ describe('Update User Repository', () => {
       describe('and user is not found', () => {
         let result: User | undefined;
         beforeAll(async () => {
-          jest.spyOn(typeorm.getRepository('user'), 'findOne').mockResolvedValueOnce(undefined);
+          jest.spyOn(typeorm.getRepository('user'), 'findOne')
+            .mockResolvedValueOnce(undefined)
+            .mockResolvedValueOnce(undefined);
+
           result = await sut.execute({ id: 'valid_id', name: 'edited_name' });
         });
 
@@ -73,7 +76,7 @@ describe('Update User Repository', () => {
     describe('and save throws', () => {
       let result: Promise<User | undefined>;
       beforeAll(async () => {
-        jest.spyOn(typeorm.getRepository('user'), 'save').mockRejectedValueOnce(new Error());
+        jest.spyOn(typeorm.getRepository('user'), 'save').mockRejectedValue(new Error());
         result = sut.execute({ id: 'valid_id', name: 'edited_name' });
       });
 

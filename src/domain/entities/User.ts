@@ -1,4 +1,4 @@
-import { UserRole } from '@domain/agreggates/UserRole';
+import { UserRole } from '@domain/aggregates/UserRole';
 
 export interface User extends UserRole {
   id: string

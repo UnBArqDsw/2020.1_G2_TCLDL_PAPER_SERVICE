@@ -24,8 +24,10 @@ describe('Read user controller', () => {
   describe('and calls handle', () => {
     describe('and promise resolves', () => {
       const httpRequest: HttpRequest = {
-        params: {
-          userId: 'valid_id',
+        headers: {
+          decodedToken: {
+            id: 'valid_id',
+          },
         },
       };
       let httpResponse: HttpResponse;
@@ -57,8 +59,10 @@ describe('Read user controller', () => {
 
     describe('and readUser throws', () => {
       const httpRequest: HttpRequest = {
-        params: {
-          userId: 'valid_id',
+        headers: {
+          decodedToken: {
+            id: 'valid_id',
+          },
         },
       };
       let httpResponse: HttpResponse;

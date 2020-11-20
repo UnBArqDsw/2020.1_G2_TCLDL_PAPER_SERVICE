@@ -34,7 +34,7 @@ describe('ReadUserRoute', () => {
             password: '123456',
           });
 
-        await request.get(`/${process.env.SERVICE_VERSION}/users/${response.body.id}`).set({
+        await request.get(`/${process.env.SERVICE_VERSION}/users`).set({
           authorization: `Bearer ${token}`,
         }).expect(200);
 

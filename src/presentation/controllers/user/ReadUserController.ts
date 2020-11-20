@@ -13,7 +13,7 @@ export class ReadUserController implements Controller {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const { userId } = request.params;
+      const userId = request.headers.decodedToken.id;
       const user = await this.findUser.execute({ id: userId });
 
       if (!user) {

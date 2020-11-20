@@ -20,9 +20,9 @@ const updateUserValidatorMiddleware = new UpdateUserValidatorMiddlewareFactory()
 const updateUserController = new UpdateUserControllerFactory().create();
 
 export default (router: Router) => {
-  router.put('/user/:userId', authMiddleware, verifyIfUserIsSameOfDecodedToken, findUserMiddleware,
+  router.put('/users/:userId', authMiddleware, verifyIfUserIsSameOfDecodedToken, findUserMiddleware,
     updateUserValidatorMiddleware, updateUserController);
 
-  router.patch('/user/:userId', authMiddleware, verifyIfUserIsSameOfDecodedToken, findUserMiddleware,
+  router.patch('/users/:userId', authMiddleware, verifyIfUserIsSameOfDecodedToken, findUserMiddleware,
     updateUserValidatorMiddleware, updateUserController);
 };

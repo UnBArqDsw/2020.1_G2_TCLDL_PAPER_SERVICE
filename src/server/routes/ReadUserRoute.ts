@@ -9,5 +9,5 @@ const verifyIfUserIsSameOfDecodedToken = new VerifyIfUserIsSameOfDecodedTokenFac
 const readUserController = new ReadUserControllerFactory().create();
 
 export default (router: Router) => {
-  router.get('/user/:userId', authMiddleware, verifyIfUserIsSameOfDecodedToken, readUserController);
+  router.get('/users/:userId', authMiddleware, verifyIfUserIsSameOfDecodedToken, readUserController);
 };

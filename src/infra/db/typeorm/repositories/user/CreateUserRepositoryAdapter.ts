@@ -9,6 +9,6 @@ export class CreateUserRepositoryAdapter implements CreateUserRepository {
     const user = new UserAdapter(data);
     await userRepository.save(user);
 
-    return userRepository.findOneOrFail({ id: user.id });
+    return userRepository.findOneOrFail({ where: { id: user.id } });
   }
 }

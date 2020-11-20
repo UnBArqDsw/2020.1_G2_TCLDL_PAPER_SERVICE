@@ -1,7 +1,8 @@
 import { User } from '@domain/entities/User';
 import {
-  Entity, PrimaryColumn, Column, ManyToOne,
+  Entity, PrimaryColumn, Column, ManyToOne, OneToMany,
 } from 'typeorm';
+import { PaperAdapter } from './PaperAdapter';
 import { RoleAdapter } from './RoleAdapter';
 
 @Entity('users')
@@ -29,6 +30,9 @@ export class UserAdapter implements User {
 
   @ManyToOne(() => RoleAdapter, (role) => role.users)
   role?: RoleAdapter;
+
+  @OneToMany(() => PaperAdapter, (paper) => paper.user)
+  papers?: PaperAdapter[];
 
   constructor(data: User) {
     Object.assign(this, data);

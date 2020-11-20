@@ -1,4 +1,5 @@
 export interface HardwareInformation {
+  id: string
   cpuModel: string
   cpuCores: number
   cpuGflops: string
@@ -8,4 +9,6 @@ export interface HardwareInformation {
   tpuModel: string
   tpuCores: number
   tpuGflops: string
+  createdAt: string
+  updatedAt: string
 }

@@ -1,4 +1,6 @@
 export interface AccuracyInformation {
-  id: number;
-  accuracy: number;
+  id: string;
+  accuracy: string;
+  createdAt: string
+  updatedAt: string
 }

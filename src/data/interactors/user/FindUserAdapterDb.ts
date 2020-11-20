@@ -1,4 +1,5 @@
 import { FindUserRepository } from '@data/repositories/user/FindUserRepository';
+import { User } from '@domain/entities/User';
 import { FindUser } from '@domain/interactors/user/FindUser';
 
 export default class FindUserAdapterDb implements FindUser {
@@ -8,9 +9,7 @@ export default class FindUserAdapterDb implements FindUser {
     this.findUserRepository = findUserRepository;
   }
 
-  async execute(parameter: string, field: 'id'| 'email') {
-    const attribute = { [field]: parameter };
-
+  async execute(attribute: Partial<User>) {
     return this.findUserRepository.execute(attribute);
   }
 }

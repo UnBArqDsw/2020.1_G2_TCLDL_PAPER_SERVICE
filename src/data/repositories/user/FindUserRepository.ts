@@ -1,9 +1,5 @@
+import { Repository } from '@data/protocols/Repository';
 import { User } from '@domain/entities/User';
 
-export interface findUserAttribute {
-  id?: string
-  email?: string
-}
-export interface FindUserRepository {
-  execute: (attribute: findUserAttribute) => Promise<User | undefined>
-}
+export interface FindUserRepository extends
+  Repository<Partial<Omit<User, 'createdAt' | 'updatedAt'>>, User | undefined> {}

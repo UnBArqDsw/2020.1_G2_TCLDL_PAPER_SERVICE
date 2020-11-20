@@ -1,6 +1,7 @@
-import { LoginAdapter } from '@data/interactors/Authenticate/LoginAdapter';
+import { LoginAdapter } from '@data/interactors/authenticate/LoginAdapter';
 import { JwtAdapter } from '@infra/jwt/JwtAdapter';
-import { FindUserRepositoryAdapter } from '@infra/db/typeorm/repositories/user/FindUserRepositoryAdapter';
+import { FindUserRepositoryAdapter }
+  from '@infra/db/typeorm/repositories/user/FindUserRepositoryAdapter';
 import { EncrypterAdapter } from '@infra/criptography/EncrypterAdapter';
 
 export class LoginFactory {

@@ -12,6 +12,7 @@ const authMiddleware = new AuthMiddlewareFactory().create();
 const verifyIfUserIsSameOfDecodedToken = new VerifyIfUserIsSameOfDecodedTokenFactory().create();
 const findUserMiddleware = new FindUserMiddlewareFactory().create();
 const removeUserController = new RemoveUserControllerFactory().create();
+
 export default (router: Router) => {
   router.delete('/users/:userId',
     authMiddleware, verifyIfUserIsSameOfDecodedToken,

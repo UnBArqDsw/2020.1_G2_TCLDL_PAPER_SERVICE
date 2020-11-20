@@ -1,6 +1,6 @@
 import { CreateUser } from '@domain/interactors/user/CreateUser';
 import { Controller } from '@presentation/protocols/Controller';
-import { serverError, successCreate } from '@presentation/helpers/HttpHelper';
+import { ResponseHelper } from '@presentation/helpers/ResponseHelper';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 
 export class SignUpController implements Controller {
@@ -13,9 +13,9 @@ export class SignUpController implements Controller {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
       const user = await this.createUser.execute(request.body);
-      return successCreate(user);
+      return ResponseHelper.successCreate(user);
     } catch (error) {
-      return serverError();
+      return ResponseHelper.serverError();
     }
   }
 }

@@ -1,3 +1,3 @@
-export interface RemoveUser {
-  execute: (parameter: string) => Promise<void>
-}
+import { Interactor } from '../../protocols/Interactor';
+
+export interface RemoveUser extends Interactor<string, void> {}

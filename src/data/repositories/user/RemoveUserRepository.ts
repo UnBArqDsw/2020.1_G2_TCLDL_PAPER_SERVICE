@@ -1,3 +1,3 @@
-export interface RemoveUserRepository {
-  execute: (parameter: string) => Promise<void>
-}
+import { Repository } from '@data/protocols/Repository';
+
+export interface RemoveUserRepository extends Repository<string, void> {}

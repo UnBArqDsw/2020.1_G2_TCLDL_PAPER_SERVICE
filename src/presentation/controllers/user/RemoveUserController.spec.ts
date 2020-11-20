@@ -22,7 +22,7 @@ describe('Remove user controller', () => {
         httpResponse = await sut.handle(httpRequest);
       });
 
-      test('should return 204', () => {
+      it('should return 204', () => {
         expect(httpResponse.statusCode).toBe(204);
       });
     });
@@ -38,7 +38,7 @@ describe('Remove user controller', () => {
         httpResponse = await sut.handle(httpRequest);
       });
 
-      test('should return 500 if remove user throws', () => {
+      it('should return 500 if remove user throws', () => {
         expect(httpResponse.statusCode).toBe(500);
       });
     });

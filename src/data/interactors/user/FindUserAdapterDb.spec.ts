@@ -23,7 +23,7 @@ describe('Find user adapter db', () => {
     describe('and promise resolves', () => {
       let result: User | undefined;
       beforeAll(async () => {
-        result = await sut.execute('test', 'id');
+        result = await sut.execute({ id: 'test' });
       });
 
       it('should return user', () => {
@@ -43,7 +43,7 @@ describe('Find user adapter db', () => {
       let result: Promise<User | undefined>;
       beforeAll(async () => {
         jest.spyOn(findUserRepositoryStub, 'execute').mockRejectedValueOnce(new Error());
-        result = sut.execute('test', 'email');
+        result = sut.execute({ email: 'test' });
       });
 
       it('should throws', async () => {

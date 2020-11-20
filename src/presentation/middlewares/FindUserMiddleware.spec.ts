@@ -4,7 +4,7 @@ import { HttpRequest, HttpResponse } from '@presentation/protocols/Http';
 import { FindUserMiddleware } from './FindUserMiddleware';
 
 class FindUserStub implements FindUser {
-  async execute(_params: string): Promise<User | undefined> {
+  async execute(_params: Partial<User>): Promise<User | undefined> {
     return {
       id: 'valid_id',
       name: 'valid_name',
@@ -40,7 +40,7 @@ describe('Find user middleware', () => {
       });
 
       test('should call find user with correct params', () => {
-        expect(findUserStub.execute).toHaveBeenCalledWith('valid_id', 'id');
+        expect(findUserStub.execute).toHaveBeenCalledWith({ id: 'valid_id' });
       });
 
       describe('and user is not found', () => {

@@ -1,5 +1,4 @@
 import { User } from '@domain/entities/User';
+import { Interactor } from '../../protocols/Interactor';
 
-export interface FindUser {
-  execute: (parameter: string, field: string) => Promise<User | undefined>
-}
+export interface FindUser extends Interactor<Partial<User>, User | undefined> {}

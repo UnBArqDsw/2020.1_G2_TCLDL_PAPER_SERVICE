@@ -1,5 +1,4 @@
-import { Paper } from '@domain/entities/PaperInformation';
+import { Paper } from '@domain/entities/Paper';
+import { Interactor } from '@domain/protocols/Interactor';
 
-export interface CreatePaper {
-  execute: (data: Paper) => Promise<Paper>
-}
+export interface CreatePaper extends Interactor<Paper> {}

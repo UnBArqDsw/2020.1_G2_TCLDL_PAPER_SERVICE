@@ -17,7 +17,7 @@ class UpdateUserStub implements UpdateUser {
   }
 }
 
-describe('Remove user controller', () => {
+describe('Update user controller', () => {
   const updateUserStub = new UpdateUserStub();
   const sut = new UpdateUserController(updateUserStub);
   describe('when calls handle', () => {

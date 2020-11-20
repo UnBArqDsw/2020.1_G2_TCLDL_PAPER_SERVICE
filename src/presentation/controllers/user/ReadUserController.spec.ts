@@ -17,7 +17,7 @@ class ReadUserStub implements FindUser {
   }
 }
 
-describe('Update user controller', () => {
+describe('Read user controller', () => {
   const readUserStub = new ReadUserStub();
   const sut = new ReadUserController(readUserStub);
 

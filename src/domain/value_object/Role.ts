@@ -1,4 +1,4 @@
-import { RoleUsers } from '@domain/agreggates/RoleUsers';
+import { RoleUsers } from '@domain/aggregates/RoleUsers';
 
 export interface Role extends RoleUsers{
   id: number;
